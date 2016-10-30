@@ -1,0 +1,6 @@
+[submodule "Carthage/Checkouts/TPCircularBuffer"]
+	path = Carthage/Checkouts/TPCircularBuffer
+	url = https://github.com/michaeltyson/TPCircularBuffer.git
+[submodule "Carthage/Checkouts/shairplay"]
+	path = Carthage/Checkouts/shairplay
+	url = https://github.com/qasim/shairplay.git
