@@ -41,8 +41,9 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 - (void)airstreamWillStopStreaming:(Airstream *)airstream;
 
 - (void)airstream:(Airstream *)airstream processAudio:(const void *)buffer length:(int)length;
+
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
-- (void)airstream:(Airstream *)airstream didSetMetaData:(NSDictionary<NSString *, NSString *> *)metadata;
+- (void)airstream:(Airstream *)airstream didSetMetaData:(NSDictionary<NSString *, NSString *> *)metaData;
 - (void)airstream:(Airstream *)airstream didSetCoverArt:(NSImage *)coverArt;
 - (void)airstream:(Airstream *)airstream didSetPosition:(NSUInteger)position duration:(NSUInteger)duration;
 
