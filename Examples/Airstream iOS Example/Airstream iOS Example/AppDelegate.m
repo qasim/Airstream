@@ -22,10 +22,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  self.airstream = [[Airstream alloc] init];
-
+  self.airstream = [[Airstream alloc] initWithName:@"My iOS Airstream"];
   self.airstream.delegate = self;
-  self.airstream.name = @"iOS Test";
 
   [self.airstream startServer];
 
@@ -40,7 +38,7 @@
 
 - (TPCircularBuffer *)circularBuffer {
   if (!circularBuffer.buffer) {
-    TPCircularBufferInit(&circularBuffer, 24576*8);
+    TPCircularBufferInit(&circularBuffer, 16384);
   }
   return &circularBuffer;
 }

@@ -21,8 +21,8 @@
 
 /// AirPlay data
 @property (nonatomic, readwrite) float volume;
-@property (nonatomic, readwrite) NSDictionary<NSString *, NSString *> *metaData;
-@property (nonatomic, readwrite) NSData *coverArt;
+@property (nonatomic, readwrite) NSDictionary<NSString *, NSString *> *metadata;
+@property (nonatomic, readwrite) NSData *coverart;
 @property (nonatomic, readwrite) NSUInteger position;
 @property (nonatomic, readwrite) NSUInteger duration;
 
@@ -38,17 +38,46 @@
 
 // MARK: - Init
 
-- (instancetype)init {
+- (instancetype)initWithName:(NSString *)name {
+  self = [self initWithName:name password:nil port:DEFAULT_PORT];
+
+  if (!self) {
+    return nil;
+  }
+
+  return self;
+}
+
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password {
+  self = [self initWithName:name password:password port:DEFAULT_PORT];
+
+  if (!self) {
+    return nil;
+  }
+
+  return self;
+}
+
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password port:(NSUInteger)port {
   self = [super init];
 
   if (!self) {
     return nil;
   }
 
-  // Set defaults
-  self.name = @"Airstream";
-  self.password = nil;
-  self.port = 5000;
+  if (name != nil) {
+    self.name = name;
+  } else {
+    self.name = @"My Airstream";
+  }
+
+  if (password != nil) {
+    self.password = name;
+  } else {
+    self.password = nil;
+  }
+
+  self.port = port;
 
   self.running = NO;
 
@@ -77,7 +106,7 @@
   raopCallbacks.audio_set_coverart = audio_set_coverart;
 
   // Server settings
-  const char address[] = { 0x49, 0x5d, 0x60, 0x7c, 0xee, 0x22 };
+  const char address[] = { 0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22 };
   const char *name = [self.name UTF8String];
   const char *password = [self.password UTF8String];
   unsigned short port = self.port;
@@ -188,7 +217,7 @@ static void audio_set_volume(void *context, void *opaque, float volume) {
 
 static void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
-  NSMutableDictionary *metaData = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
 
   int offset = 8;
   while (offset < bufferLength) {
@@ -209,25 +238,25 @@ static void audio_set_metadata(void *context, void *session, const void *buffer,
     NSString *key = [NSString stringWithUTF8String:tag];
     NSString *value = [NSString stringWithUTF8String:content];
     if (key != nil && value != nil) {
-      [metaData setObject:value forKey:key];
+      [metadata setObject:value forKey:key];
     }
   }
 
-  airstream.metaData = metaData;
+  airstream.metadata = metadata;
 
-  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetMetaData:)]) {
-    [airstream.delegate airstream:airstream didSetMetaData:metaData];
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetMetadata:)]) {
+    [airstream.delegate airstream:airstream didSetMetadata:metadata];
   }
 }
 
 static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
 
-  NSData *coverArt = [NSData dataWithBytes:buffer length:bufferLength];
-  airstream.coverArt = coverArt;
+  NSData *coverart = [NSData dataWithBytes:buffer length:bufferLength];
+  airstream.coverart = coverart;
 
-  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetCoverArt:)]) {
-    [airstream.delegate airstream:airstream didSetCoverArt:coverArt];
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetCoverart:)]) {
+    [airstream.delegate airstream:airstream didSetCoverart:coverart];
   }
 }
 

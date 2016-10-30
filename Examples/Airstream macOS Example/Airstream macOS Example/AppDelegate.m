@@ -24,11 +24,8 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  self.buffering = YES;
-
-  self.airstream = [[Airstream alloc] init];
+  self.airstream = [[Airstream alloc] initWithName:@"My Mac Airstream"];
   self.airstream.delegate = self;
-  self.airstream.name = @"My AirPlay Server2";
 
   [self.airstream startServer];
 }

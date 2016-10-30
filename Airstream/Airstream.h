@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#define DEFAULT_PORT 5000
+
 /// Shairplay headers
 static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
 static void audio_flush(void *context, void *session);
@@ -44,8 +46,8 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 // MARK: AirPlay data listeners
 
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
-- (void)airstream:(Airstream *)airstream didSetMetaData:(NSDictionary<NSString *, NSString *> *)metaData;
-- (void)airstream:(Airstream *)airstream didSetCoverArt:(NSData *)coverArt;
+- (void)airstream:(Airstream *)airstream didSetMetadata:(NSDictionary<NSString *, NSString *> *)metadata;
+- (void)airstream:(Airstream *)airstream didSetCoverart:(NSData *)coverart;
 - (void)airstream:(Airstream *)airstream didSetPosition:(NSUInteger)position duration:(NSUInteger)duration;
 
 @end
@@ -66,13 +68,18 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
 /// AirPlay data
 @property (nonatomic, readonly) float volume;
-@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *metaData;
-@property (nonatomic, readonly) NSData *coverArt;
+@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *metadata;
+@property (nonatomic, readonly) NSData *coverart;
 @property (nonatomic, readonly) NSUInteger position;
 @property (nonatomic, readonly) NSUInteger duration;
 
 /// Determines if the AirPlay server is running
 @property (nonatomic, readonly) BOOL running;
+
+/// Initializers
+- (instancetype)initWithName:(NSString *)name;
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password;
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password port:(NSUInteger)port;
 
 /// Basic operations
 - (void)startServer;
