@@ -6,13 +6,17 @@
 //  Copyright © 2016 Qasim Iqbal. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for Airstream.
-FOUNDATION_EXPORT double AirstreamVersionNumber;
+#import <stdlib.h>
+#import <stdio.h>
+#import <math.h>
+#import <string.h>
+#import <unistd.h>
+#import <assert.h>
 
-//! Project version string for Airstream.
-FOUNDATION_EXPORT const unsigned char AirstreamVersionString[];
+#import <shairplay/dnssd.h>
+#import <shairplay/raop.h>
 
 @interface Airstream : NSObject
 

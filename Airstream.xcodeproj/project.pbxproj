@@ -44,6 +44,7 @@
 		D1524B381DC562AF009C5D23 /* Airstream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Airstream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1524B3B1DC562AF009C5D23 /* Airstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airstream.h; sourceTree = "<group>"; };
 		D1524B3C1DC562AF009C5D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1694DF81DC572B5002978F1 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
 		D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D18FC1B11DC568A100563F36 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shairplay.xcodeproj; path = ../Carthage/Checkouts/shairplay/extras/xcode/shairplay/shairplay.xcodeproj; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		D1524B3A1DC562AF009C5D23 /* Airstream */ = {
 			isa = PBXGroup;
 			children = (
+				D1694DF81DC572B5002978F1 /* Airport.h */,
 				D1524B3B1DC562AF009C5D23 /* Airstream.h */,
 				D18FC1ED1DC56E9A00563F36 /* Airstream.m */,
 				D1524B3C1DC562AF009C5D23 /* Info.plist */,
