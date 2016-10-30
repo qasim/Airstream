@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-typedef UIImage NSImage;
-#else
-#import <AppKit/AppKit.h>
-#endif
-
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 
@@ -50,7 +43,7 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
 - (void)airstream:(Airstream *)airstream didSetMetaData:(NSDictionary<NSString *, NSString *> *)metaData;
-- (void)airstream:(Airstream *)airstream didSetCoverArt:(NSImage *)coverArt;
+- (void)airstream:(Airstream *)airstream didSetCoverArt:(NSData *)coverArt;
 - (void)airstream:(Airstream *)airstream didSetPosition:(NSUInteger)position duration:(NSUInteger)duration;
 
 @end
@@ -69,7 +62,7 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
 @property (nonatomic) float volume;
 @property (nonatomic) NSDictionary<NSString *, NSString *> *metaData;
-@property (nonatomic) NSImage *coverArt;
+@property (nonatomic) NSData *coverArt;
 
 @property (nonatomic) NSUInteger position;
 @property (nonatomic) NSUInteger duration;

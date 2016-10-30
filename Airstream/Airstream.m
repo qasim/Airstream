@@ -179,8 +179,7 @@ static void audio_set_metadata(void *context, void *session, const void *buffer,
 static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
 
-  NSData *data = [NSData dataWithBytes:buffer length:bufferLength];
-  NSImage *coverArt = [[NSImage alloc] initWithData:data];
+  NSData *coverArt = [NSData dataWithBytes:buffer length:bufferLength];
 
   airstream.coverArt = coverArt;
   [airstream.delegate airstream:airstream didSetCoverArt:coverArt];
