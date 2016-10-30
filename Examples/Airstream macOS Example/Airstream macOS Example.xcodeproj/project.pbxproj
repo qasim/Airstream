@@ -352,6 +352,7 @@
 				D1705F2D1DC5B81700F1898B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
