@@ -21,6 +21,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   self.airstream = [[Airstream alloc] init];
+  self.airstream.name = @"My AirPlay Server";
+
   [self.airstream startServer];
 }
 

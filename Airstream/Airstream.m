@@ -12,6 +12,25 @@
 #import <shairplay/dnssd.h>
 #import <shairplay/raop.h>
 
+@interface Airstream ()
+
+/// AirPlay streaming configuration
+@property (nonatomic, readwrite) NSUInteger bitsPerChannel;
+@property (nonatomic, readwrite) NSUInteger channelsPerFrame;
+@property (nonatomic, readwrite) NSUInteger sampleRate;
+
+/// AirPlay data
+@property (nonatomic, readwrite) float volume;
+@property (nonatomic, readwrite) NSDictionary<NSString *, NSString *> *metaData;
+@property (nonatomic, readwrite) NSData *coverArt;
+@property (nonatomic, readwrite) NSUInteger position;
+@property (nonatomic, readwrite) NSUInteger duration;
+
+/// Determines if the AirPlay server is running
+@property (nonatomic, readwrite) BOOL running;
+
+@end
+
 @implementation Airstream {
   dnssd_t *dnssd;
   raop_t *raop;
@@ -34,7 +53,7 @@
   return self;
 }
 
-// MARK: Server actions
+// MARK: Basic server operations
 
 - (void)startServer {
   if (self.running) {
