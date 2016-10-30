@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		D1524B3D1DC562AF009C5D23 /* Airstream.h in Headers */ = {isa = PBXBuildFile; fileRef = D1524B3B1DC562AF009C5D23 /* Airstream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D18FC1B01DC5689C00563F36 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */; };
-		D18FC1C31DC569B900563F36 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D18FC1C11DC569B900563F36 /* TPCircularBuffer.h */; };
 		D18FC1E31DC56BBF00563F36 /* libshairplay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18FC1D01DC56AC200563F36 /* libshairplay.a */; };
-		D18FC1E51DC56C3800563F36 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D18FC1E41DC56C3800563F36 /* TPCircularBuffer.c */; };
 		D18FC1EE1DC56E9A00563F36 /* Airstream.m in Sources */ = {isa = PBXBuildFile; fileRef = D18FC1ED1DC56E9A00563F36 /* Airstream.m */; };
 /* End PBXBuildFile section */
 
@@ -47,8 +45,6 @@
 		D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D18FC1B11DC568A100563F36 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shairplay.xcodeproj; path = ../Carthage/Checkouts/shairplay/extras/xcode/shairplay/shairplay.xcodeproj; sourceTree = "<group>"; };
-		D18FC1C11DC569B900563F36 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
-		D18FC1E41DC56C3800563F36 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
 		D18FC1ED1DC56E9A00563F36 /* Airstream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airstream.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,20 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */,
-				D18FC1C21DC569B900563F36 /* TPCircularBuffer */,
 			);
 			name = Dependencies;
 			path = Airstream;
-			sourceTree = "<group>";
-		};
-		D18FC1C21DC569B900563F36 /* TPCircularBuffer */ = {
-			isa = PBXGroup;
-			children = (
-				D18FC1C11DC569B900563F36 /* TPCircularBuffer.h */,
-				D18FC1E41DC56C3800563F36 /* TPCircularBuffer.c */,
-			);
-			name = TPCircularBuffer;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		D18FC1CB1DC56AC200563F36 /* Products */ = {
@@ -140,7 +125,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1524B3D1DC562AF009C5D23 /* Airstream.h in Headers */,
-				D18FC1C31DC569B900563F36 /* TPCircularBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +221,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D18FC1EE1DC56E9A00563F36 /* Airstream.m in Sources */,
-				D18FC1E51DC56C3800563F36 /* TPCircularBuffer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
