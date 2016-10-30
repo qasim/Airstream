@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D12778281DC5AE6F00818DB0 /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
 		D1705F581DC5CF4300F1898B /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1705F561DC5CF4300F1898B /* TPCircularBuffer.c */; };
+		D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
+		D18D317A1DC5D80000AD55A2 /* Airstream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D1D329431DC5AA9A00C1944A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329421DC5AA9A00C1944A /* main.m */; };
 		D1D329461DC5AA9A00C1944A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329451DC5AA9A00C1944A /* AppDelegate.m */; };
 		D1D329491DC5AA9A00C1944A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329481DC5AA9A00C1944A /* ViewController.m */; };
@@ -18,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D12778261DC5AE5A00818DB0 /* PBXContainerItemProxy */ = {
+		D18D317B1DC5D80000AD55A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D1D3295E1DC5AADA00C1944A /* Airstream.xcodeproj */;
 			proxyType = 1;
@@ -33,6 +34,20 @@
 			remoteInfo = Airstream;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D18D317D1DC5D80000AD55A2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D18D317A1DC5D80000AD55A2 /* Airstream.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D127782A1DC5AE7C00818DB0 /* libshairplay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libshairplay.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Airstream_iOS_Example-gvtzivefquhkrheijdiuajjoobub/Build/Products/libshairplay.a"; sourceTree = "<group>"; };
@@ -58,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D12778281DC5AE6F00818DB0 /* Airstream.framework in Frameworks */,
+				D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,11 +168,12 @@
 				D1D3293A1DC5AA9A00C1944A /* Sources */,
 				D1D3293B1DC5AA9A00C1944A /* Frameworks */,
 				D1D3293C1DC5AA9A00C1944A /* Resources */,
+				D18D317D1DC5D80000AD55A2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D12778271DC5AE5A00818DB0 /* PBXTargetDependency */,
+				D18D317C1DC5D80000AD55A2 /* PBXTargetDependency */,
 			);
 			name = "Airstream iOS Example";
 			productName = "Airstream iOS Example";
@@ -241,10 +257,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D12778271DC5AE5A00818DB0 /* PBXTargetDependency */ = {
+		D18D317C1DC5D80000AD55A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Airstream;
-			targetProxy = D12778261DC5AE5A00818DB0 /* PBXContainerItemProxy */;
+			targetProxy = D18D317B1DC5D80000AD55A2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -361,6 +377,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../**";
 				INFOPLIST_FILE = "Airstream iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -375,6 +392,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../**";
 				INFOPLIST_FILE = "Airstream iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
