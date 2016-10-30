@@ -24,7 +24,6 @@
   [self.airstream startServer];
 }
 
-
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   [self.airstream stopServer];
 }
