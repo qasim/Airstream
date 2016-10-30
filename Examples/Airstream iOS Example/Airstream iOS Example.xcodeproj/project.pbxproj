@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D1084E841DC653C70092F982 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1084E821DC653C70092F982 /* TPCircularBuffer.c */; };
+		D1084E8A1DC659680092F982 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1084E891DC659680092F982 /* AudioToolbox.framework */; };
 		D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
 		D18D317A1DC5D80000AD55A2 /* Airstream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D1D329431DC5AA9A00C1944A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329421DC5AA9A00C1944A /* main.m */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		D1084E821DC653C70092F982 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
 		D1084E831DC653C70092F982 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
+		D1084E891DC659680092F982 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D1D3293E1DC5AA9A00C1944A /* Airstream iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airstream iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D329421DC5AA9A00C1944A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D1D329441DC5AA9A00C1944A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1084E8A1DC659680092F982 /* AudioToolbox.framework in Frameworks */,
 				D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,7 @@
 		D12778291DC5AE7C00818DB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D1084E891DC659680092F982 /* AudioToolbox.framework */,
 				D1D3295E1DC5AADA00C1944A /* Airstream.xcodeproj */,
 			);
 			name = Frameworks;

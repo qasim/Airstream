@@ -9,9 +9,6 @@
 #import "AppDelegate.h"
 #import "TPCircularBuffer.h"
 
-/// Callback for AudioUnit streaming to output device
-static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData);
-
 @interface AppDelegate ()
 
 @property (nonatomic) Airstream *airstream;
@@ -39,12 +36,16 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
   [self.airstream stopServer];
 }
 
+// MARK: - Helpers
+
 - (TPCircularBuffer *)circularBuffer {
   if (!circularBuffer.buffer) {
     TPCircularBufferInit(&circularBuffer, 24576*8);
   }
   return &circularBuffer;
 }
+
+// MARK: - AirstreamDelegate
 
 - (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat {
   // Create audio component
@@ -116,7 +117,7 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
   self.buffering = circularBuffer.fillCount < 8192;
 }
 
-- (void)airstreamWillStopStreaming:(Airstream *)airstream {
+- (void)airstreamDidStopStreaming:(Airstream *)airstream {
   TPCircularBufferClear(&circularBuffer);
 
   OSStatus status = AudioOutputUnitStop(audioUnit);
@@ -136,7 +137,7 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
 @end
 
 /// Callback for AudioUnit streaming to output device
-static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {
+OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {
   // Retrieve reference to Airstream instance
   AppDelegate *appDelegate = (__bridge AppDelegate*)inRefCon;
   TPCircularBuffer *circularBuffer = appDelegate.circularBuffer;
@@ -160,4 +161,3 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
 
   return noErr;
 }
-

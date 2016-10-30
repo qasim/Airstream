@@ -12,7 +12,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "78345AC10B944305C5F8E3B363463D1C3175BF01" : "Airstream\/",
     "8C8EC1165BF9BFFF8AC69B497EF4AD0861A82AE0" : "Airstream\/Carthage\/Checkouts\/shairplay\/",
-    "A92F984637B9EAE95E95252EC6CBD8DE42DB61D1" : "Airstream\/Examples\/Airstream%20macOS%20Example\/Carthage\/Checkouts\/TPCircularBuffer\/"
+    "A92F984637B9EAE95E95252EC6CBD8DE42DB61D1" : "Airstream\/Carthage\/Checkouts\/TPCircularBuffer\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Airstream macOS Example",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

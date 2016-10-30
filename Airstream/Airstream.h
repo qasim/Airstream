@@ -25,15 +25,24 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
 @optional
 
-/// Stream setup / teardown
-- (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat;
-- (void)airstreamWillStopStreaming:(Airstream *)airstream;
+// MARK: Stream setup / teardown
 
-/// Audio processing
-- (void)airstream:(Airstream *)airstream flushAudio:(const void *)session;
+/// Called right before a device has connected
+- (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat;
+
+/// Called right after a device has disconnected
+- (void)airstreamDidStopStreaming:(Airstream *)airstream;
+
+// MARK: Audio processing
+
+/// Flush any audio output buffers, as a new audio source will begin to broadcast
+- (void)airstreamFlushAudio:(Airstream *)airstream;
+
+/// Process the linear PCM audio streamed from a device
 - (void)airstream:(Airstream *)airstream processAudio:(char *)buffer length:(int)length;
 
-/// AirPlay data listeners
+// MARK: AirPlay data listeners
+
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
 - (void)airstream:(Airstream *)airstream didSetMetaData:(NSDictionary<NSString *, NSString *> *)metaData;
 - (void)airstream:(Airstream *)airstream didSetCoverArt:(NSData *)coverArt;
@@ -68,6 +77,5 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 /// Basic operations
 - (void)startServer;
 - (void)stopServer;
-- (void)restartServer;
 
 @end

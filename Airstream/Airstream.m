@@ -50,6 +50,8 @@
   self.password = nil;
   self.port = 5000;
 
+  self.running = NO;
+
   return self;
 }
 
@@ -63,6 +65,7 @@
   // Register RAOP callbacks
   raop_callbacks_t raopCallbacks;
   memset(&raopCallbacks, 0, sizeof(raopCallbacks));
+
   raopCallbacks.cls = (__bridge void *)(self);
   raopCallbacks.audio_init = audio_init;
   raopCallbacks.audio_flush = audio_flush;
@@ -74,7 +77,7 @@
   raopCallbacks.audio_set_coverart = audio_set_coverart;
 
   // Server settings
-  const char address[] = { 0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22 };
+  const char address[] = { 0x49, 0x5d, 0x60, 0x7c, 0xee, 0x22 };
   const char *name = [self.name UTF8String];
   const char *password = [self.password UTF8String];
   unsigned short port = self.port;
@@ -119,11 +122,6 @@
   self.running = NO;
 }
 
-- (void)restartServer {
-  [self stopServer];
-  [self startServer];
-}
-
 @end
 
 static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate) {
@@ -156,8 +154,8 @@ static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame,
 static void audio_flush(void *context, void *session) {
   Airstream *airstream = (__bridge Airstream *)context;
 
-  if ([airstream.delegate respondsToSelector:@selector(airstream:flushAudio:)]) {
-    [airstream.delegate airstream:airstream flushAudio:session];
+  if ([airstream.delegate respondsToSelector:@selector(airstreamFlushAudio:)]) {
+    [airstream.delegate airstreamFlushAudio:airstream];
   }
 }
 
@@ -172,8 +170,8 @@ static void audio_process(void *context, void *opaque, const void *buffer, int b
 static void audio_destroy(void *context, void *opaque) {
   Airstream *airstream = (__bridge Airstream *)context;
 
-  if ([airstream.delegate respondsToSelector:@selector(airstreamWillStopStreaming:)]) {
-    [airstream.delegate airstreamWillStopStreaming:airstream];
+  if ([airstream.delegate respondsToSelector:@selector(airstreamDidStopStreaming:)]) {
+    [airstream.delegate airstreamDidStopStreaming:airstream];
   }
 }
 

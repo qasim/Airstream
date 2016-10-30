@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D1084E881DC6540A0092F982 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1084E861DC6540A0092F982 /* TPCircularBuffer.c */; };
+		D1084E8C1DC659AA0092F982 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1084E8B1DC659AA0092F982 /* AudioToolbox.framework */; };
 		D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F1E1DC5B81700F1898B /* AppDelegate.m */; };
 		D1705F221DC5B81700F1898B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F211DC5B81700F1898B /* main.m */; };
 		D1705F241DC5B81700F1898B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1705F231DC5B81700F1898B /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		D1084E861DC6540A0092F982 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
 		D1084E871DC6540A0092F982 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
+		D1084E8B1DC659AA0092F982 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D1705F1A1DC5B81700F1898B /* Airstream macOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airstream macOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1705F1D1DC5B81700F1898B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1705F1E1DC5B81700F1898B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1084E8C1DC659AA0092F982 /* AudioToolbox.framework in Frameworks */,
 				D19693771DC5DBB90035EB1E /* Airstream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +78,7 @@
 		D1084E851DC653F90092F982 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D1084E8B1DC659AA0092F982 /* AudioToolbox.framework */,
 				D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */,
 			);
 			name = Frameworks;

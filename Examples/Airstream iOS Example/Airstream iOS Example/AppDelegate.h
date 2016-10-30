@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @import Airstream;
 
@@ -15,3 +16,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @end
+
+/// Callback for AudioUnit streaming to output device
+OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData);

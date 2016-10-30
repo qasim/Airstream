@@ -9,12 +9,10 @@
 #import "AppDelegate.h"
 #import "TPCircularBuffer.h"
 
-/// Callback for AudioUnit streaming to output device
-static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData);
-
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+
 @property (nonatomic) Airstream *airstream;
 @property (nonatomic) BOOL buffering;
 
@@ -30,7 +28,7 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
 
   self.airstream = [[Airstream alloc] init];
   self.airstream.delegate = self;
-  self.airstream.name = @"My AirPlay Server";
+  self.airstream.name = @"My AirPlay Server2";
 
   [self.airstream startServer];
 }
@@ -39,12 +37,22 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
   [self.airstream stopServer];
 }
 
+// MARK: - Helpers
+
 - (TPCircularBuffer *)circularBuffer {
   if (!circularBuffer.buffer) {
     TPCircularBufferInit(&circularBuffer, 24576*8);
   }
   return &circularBuffer;
 }
+
+- (void)handleCoreAudioError:(OSStatus)err {
+  // TODO: Improve error handling
+  NSLog(@"CoreAudio error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
+  exit(-1);
+}
+
+// MARK: - AirstreamDelegate
 
 - (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat {
   // Create audio component
@@ -92,15 +100,15 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
 
 - (void)airstream:(Airstream *)airstream processAudio:(char *)buffer length:(int)length {
   // Adjust volume if needed
-  if (self.airstream.volume < 1.0) {
+  if (airstream.volume < 1.0) {
     short *shortData = (short *)buffer;
     for (int i = 0; i < length / 2; i++) {
-      shortData[i] = shortData[i] * self.airstream.volume;
+      shortData[i] = shortData[i] * airstream.volume;
     }
   }
 
   AudioBuffer audioBuffer = {
-    .mNumberChannels = (unsigned int)self.airstream.channelsPerFrame,
+    .mNumberChannels = (unsigned int)airstream.channelsPerFrame,
     .mDataByteSize = length,
     .mData = buffer
   };
@@ -116,7 +124,7 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
   self.buffering = circularBuffer.fillCount < 8192;
 }
 
-- (void)airstreamWillStopStreaming:(Airstream *)airstream {
+- (void)airstreamDidStopStreaming:(Airstream *)airstream {
   TPCircularBufferClear(&circularBuffer);
 
   OSStatus status = AudioOutputUnitStop(audioUnit);
@@ -127,16 +135,10 @@ static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags 
   audioUnit = NULL;
 }
 
-- (void)handleCoreAudioError:(OSStatus)err {
-  // TODO: Improve error handling
-  NSLog(@"CoreAudio error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
-  exit(-1);
-}
-
 @end
 
 /// Callback for AudioUnit streaming to output device
-static OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {
+OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {
   // Retrieve reference to Airstream instance
   AppDelegate *appDelegate = (__bridge AppDelegate*)inRefCon;
   TPCircularBuffer *circularBuffer = appDelegate.circularBuffer;
