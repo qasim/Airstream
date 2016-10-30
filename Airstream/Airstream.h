@@ -22,13 +22,13 @@
 #import <unistd.h>
 #import <assert.h>
 
-static void *audio_init(void *context, int bits, int channels, int samplerate);
-static void audio_process(void *context, void *opaque, const void *buffer, int buflen);
+static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
+static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength);
 static void audio_destroy(void *context, void *opaque);
 
 static void audio_set_volume(void *context, void *opaque, float volume);
-static void audio_set_metadata(void *context, void *session, const void *buffer, int buflen);
-static void audio_set_coverart(void *context, void *session, const void *buffer, int buflen);
+static void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength);
+static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength);
 static void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end);
 
 @class Airstream;
