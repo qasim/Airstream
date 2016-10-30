@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+typedef UIImage NSImage;
+#else
 #import <AppKit/AppKit.h>
+#endif
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
