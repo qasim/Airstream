@@ -11,17 +11,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 
-#import <shairplay/dnssd.h>
-#import <shairplay/raop.h>
-
-#import <stdlib.h>
-#import <stdio.h>
-#import <math.h>
-#import <string.h>
-#import <unistd.h>
-#import <assert.h>
-
 static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
+static void audio_flush(void *context, void *session);
 static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength);
 static void audio_destroy(void *context, void *opaque);
 
@@ -39,6 +30,7 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 - (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat;
 - (void)airstreamWillStopStreaming:(Airstream *)airstream;
 
+- (void)airstream:(Airstream *)airstream flushAudio:(const void *)session;
 - (void)airstream:(Airstream *)airstream processAudio:(const void *)buffer length:(int)length;
 
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
@@ -68,5 +60,9 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 @property (nonatomic) NSUInteger duration;
 
 @property (nonatomic) BOOL running;
+
+- (void)startServer;
+- (void)stopServer;
+- (void)restartServer;
 
 @end

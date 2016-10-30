@@ -9,6 +9,9 @@
 #import "Airstream.h"
 #import "Airport.h"
 
+#import <shairplay/dnssd.h>
+#import <shairplay/raop.h>
+
 @implementation Airstream {
   dnssd_t *dnssd;
   raop_t *raop;
@@ -40,8 +43,10 @@
 
   // Register RAOP callbacks
   raop_callbacks_t raopCallbacks;
+  memset(&raopCallbacks, 0, sizeof(raopCallbacks));
   raopCallbacks.cls = (__bridge void *)(self);
   raopCallbacks.audio_init = audio_init;
+  raopCallbacks.audio_flush = audio_flush;
   raopCallbacks.audio_process = audio_process;
   raopCallbacks.audio_destroy = audio_destroy;
   raopCallbacks.audio_set_volume = audio_set_volume;
@@ -124,6 +129,11 @@ static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame,
   [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
 
   return NULL;
+}
+
+static void audio_flush(void *context, void *session) {
+  Airstream *airstream = (__bridge Airstream *)context;
+  [airstream.delegate airstream:airstream flushAudio:session];
 }
 
 static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength) {

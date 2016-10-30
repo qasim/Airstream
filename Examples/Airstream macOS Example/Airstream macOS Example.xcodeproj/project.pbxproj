@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F1E1DC5B81700F1898B /* AppDelegate.m */; };
+		D1705F221DC5B81700F1898B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F211DC5B81700F1898B /* main.m */; };
+		D1705F241DC5B81700F1898B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1705F231DC5B81700F1898B /* Assets.xcassets */; };
+		D1705F271DC5B81700F1898B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1705F251DC5B81700F1898B /* MainMenu.xib */; };
+		D1705F3D1DC5B84600F1898B /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1705F361DC5B83100F1898B /* Airstream.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1705F351DC5B83100F1898B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D1524B381DC562AF009C5D23;
+			remoteInfo = Airstream;
+		};
+		D1705F3B1DC5B84300F1898B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D1524B371DC562AF009C5D23;
+			remoteInfo = Airstream;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D1705F1A1DC5B81700F1898B /* Airstream macOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airstream macOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1705F1D1DC5B81700F1898B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D1705F1E1DC5B81700F1898B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D1705F211DC5B81700F1898B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D1705F231DC5B81700F1898B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D1705F261DC5B81700F1898B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D1705F281DC5B81700F1898B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Airstream.xcodeproj; path = ../../Airstream.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1705F171DC5B81700F1898B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1705F3D1DC5B84600F1898B /* Airstream.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D1705F111DC5B81700F1898B = {
+			isa = PBXGroup;
+			children = (
+				D1705F1C1DC5B81700F1898B /* Airstream macOS Example */,
+				D1705F371DC5B83400F1898B /* Dependencies */,
+				D1705F1B1DC5B81700F1898B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1705F1B1DC5B81700F1898B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F1A1DC5B81700F1898B /* Airstream macOS Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1705F1C1DC5B81700F1898B /* Airstream macOS Example */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F1D1DC5B81700F1898B /* AppDelegate.h */,
+				D1705F1E1DC5B81700F1898B /* AppDelegate.m */,
+				D1705F231DC5B81700F1898B /* Assets.xcassets */,
+				D1705F251DC5B81700F1898B /* MainMenu.xib */,
+				D1705F281DC5B81700F1898B /* Info.plist */,
+				D1705F201DC5B81700F1898B /* Supporting Files */,
+			);
+			path = "Airstream macOS Example";
+			sourceTree = "<group>";
+		};
+		D1705F201DC5B81700F1898B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F211DC5B81700F1898B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1705F2F1DC5B83100F1898B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F361DC5B83100F1898B /* Airstream.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1705F371DC5B83400F1898B /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D1705F191DC5B81700F1898B /* Airstream macOS Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1705F2B1DC5B81700F1898B /* Build configuration list for PBXNativeTarget "Airstream macOS Example" */;
+			buildPhases = (
+				D1705F161DC5B81700F1898B /* Sources */,
+				D1705F171DC5B81700F1898B /* Frameworks */,
+				D1705F181DC5B81700F1898B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1705F3C1DC5B84300F1898B /* PBXTargetDependency */,
+			);
+			name = "Airstream macOS Example";
+			productName = "Airstream macOS Example";
+			productReference = D1705F1A1DC5B81700F1898B /* Airstream macOS Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D1705F121DC5B81700F1898B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Qasim Iqbal";
+				TargetAttributes = {
+					D1705F191DC5B81700F1898B = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D1705F151DC5B81700F1898B /* Build configuration list for PBXProject "Airstream macOS Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D1705F111DC5B81700F1898B;
+			productRefGroup = D1705F1B1DC5B81700F1898B /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D1705F2F1DC5B83100F1898B /* Products */;
+					ProjectRef = D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D1705F191DC5B81700F1898B /* Airstream macOS Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D1705F361DC5B83100F1898B /* Airstream.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Airstream.framework;
+			remoteRef = D1705F351DC5B83100F1898B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D1705F181DC5B81700F1898B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1705F241DC5B81700F1898B /* Assets.xcassets in Resources */,
+				D1705F271DC5B81700F1898B /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D1705F161DC5B81700F1898B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1705F221DC5B81700F1898B /* main.m in Sources */,
+				D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1705F3C1DC5B84300F1898B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Airstream;
+			targetProxy = D1705F3B1DC5B84300F1898B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D1705F251DC5B81700F1898B /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1705F261DC5B81700F1898B /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D1705F291DC5B81700F1898B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D1705F2A1DC5B81700F1898B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D1705F2C1DC5B81700F1898B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Airstream macOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "im.qas.Airstream-macOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D1705F2D1DC5B81700F1898B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Airstream macOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "im.qas.Airstream-macOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D1705F151DC5B81700F1898B /* Build configuration list for PBXProject "Airstream macOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1705F291DC5B81700F1898B /* Debug */,
+				D1705F2A1DC5B81700F1898B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1705F2B1DC5B81700F1898B /* Build configuration list for PBXNativeTarget "Airstream macOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1705F2C1DC5B81700F1898B /* Debug */,
+				D1705F2D1DC5B81700F1898B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D1705F121DC5B81700F1898B /* Project object */;
+}
