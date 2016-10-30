@@ -75,6 +75,8 @@
   }
 
   dnssd_register_raop(dnssd, name, port, address, sizeof(address), 0);
+
+  self.running = YES;
 }
 
 - (void)stopServer {
@@ -89,6 +91,8 @@
   // Tear down RAOP server
   raop_stop(raop);
   raop_destroy(raop);
+
+  self.running = NO;
 }
 
 - (void)restartServer {
@@ -153,7 +157,7 @@ static void audio_set_metadata(void *context, void *session, const void *buffer,
     offset += 4;
 
     uint32_t length = *(uint32_t *)(buffer + offset);
-    length = ((length>>24)&0xff) | ((length<<8)&0xff0000) | ((length>>8)&0xff00) | ((length<<24)&0xff000000);
+    length = CFSwapInt32BigToHost(length);
     offset += sizeof(uint32_t);
 
     char content[length + 1];
@@ -185,11 +189,8 @@ static void audio_set_coverart(void *context, void *session, const void *buffer,
 static void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end) {
   Airstream *airstream = (__bridge Airstream *)context;
 
-  NSUInteger position = curr - start;
-  position /= airstream.sampleRate;
-
-  NSUInteger duration = end - start;
-  duration /= airstream.sampleRate;
+  NSUInteger position = (curr - start) / airstream.sampleRate;
+  NSUInteger duration = (end - start) / airstream.sampleRate;
 
   airstream.position = position;
   airstream.duration = duration;
