@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@import Airstream;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, AirstreamDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

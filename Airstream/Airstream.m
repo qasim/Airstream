@@ -145,33 +145,47 @@ static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame,
   airstream.bitsPerChannel = bitsPerChannel;
   airstream.channelsPerFrame = channelsPerFrame;
   airstream.sampleRate = sampleRate;
-  [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:willStartStreamingWithStreamFormat:)]) {
+    [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
+  }
 
   return NULL;
 }
 
 static void audio_flush(void *context, void *session) {
   Airstream *airstream = (__bridge Airstream *)context;
-  [airstream.delegate airstream:airstream flushAudio:session];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:flushAudio:)]) {
+    [airstream.delegate airstream:airstream flushAudio:session];
+  }
 }
 
 static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
-  [airstream.delegate airstream:airstream processAudio:buffer length:bufferLength];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:processAudio:length:)]) {
+    [airstream.delegate airstream:airstream processAudio:(char *)buffer length:bufferLength];
+  }
 }
 
 static void audio_destroy(void *context, void *opaque) {
   Airstream *airstream = (__bridge Airstream *)context;
-  [airstream.delegate airstreamWillStopStreaming:airstream];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstreamWillStopStreaming:)]) {
+    [airstream.delegate airstreamWillStopStreaming:airstream];
+  }
 }
 
 static void audio_set_volume(void *context, void *opaque, float volume) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   volume = pow(10.0, 0.05 * volume);
-
   airstream.volume = volume;
-  [airstream.delegate airstream:airstream didSetVolume:volume];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetVolume:)]) {
+    [airstream.delegate airstream:airstream didSetVolume:volume];
+  }
 }
 
 static void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength) {
@@ -202,16 +216,21 @@ static void audio_set_metadata(void *context, void *session, const void *buffer,
   }
 
   airstream.metaData = metaData;
-  [airstream.delegate airstream:airstream didSetMetaData:metaData];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetMetaData:)]) {
+    [airstream.delegate airstream:airstream didSetMetaData:metaData];
+  }
 }
 
 static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   NSData *coverArt = [NSData dataWithBytes:buffer length:bufferLength];
-
   airstream.coverArt = coverArt;
-  [airstream.delegate airstream:airstream didSetCoverArt:coverArt];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetCoverArt:)]) {
+    [airstream.delegate airstream:airstream didSetCoverArt:coverArt];
+  }
 }
 
 static void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end) {
@@ -222,5 +241,8 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
   airstream.position = position;
   airstream.duration = duration;
-  [airstream.delegate airstream:airstream didSetPosition:position duration:duration];
+
+  if ([airstream.delegate respondsToSelector:@selector(airstream:didSetPosition:duration:)]) {
+    [airstream.delegate airstream:airstream didSetPosition:position duration:duration];
+  }
 }

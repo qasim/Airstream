@@ -33,7 +33,7 @@ static void audio_set_progress(void *context, void *session, unsigned int start,
 
 /// Audio processing
 - (void)airstream:(Airstream *)airstream flushAudio:(const void *)session;
-- (void)airstream:(Airstream *)airstream processAudio:(const void *)buffer length:(int)length;
+- (void)airstream:(Airstream *)airstream processAudio:(char *)buffer length:(int)length;
 
 /// AirPlay data listeners
 - (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;

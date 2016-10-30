@@ -12,6 +12,7 @@
 		D1705F241DC5B81700F1898B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1705F231DC5B81700F1898B /* Assets.xcassets */; };
 		D1705F271DC5B81700F1898B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1705F251DC5B81700F1898B /* MainMenu.xib */; };
 		D1705F3D1DC5B84600F1898B /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1705F361DC5B83100F1898B /* Airstream.framework */; };
+		D1705F541DC5C9DA00F1898B /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		D1705F261DC5B81700F1898B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D1705F281DC5B81700F1898B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Airstream.xcodeproj; path = ../../Airstream.xcodeproj; sourceTree = "<group>"; };
+		D1705F511DC5C9BF00F1898B /* TPCircularBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
+		D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +106,19 @@
 		D1705F371DC5B83400F1898B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D1705F521DC5C9C600F1898B /* TPCircularBuffer */,
 				D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */,
 			);
 			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		D1705F521DC5C9C600F1898B /* TPCircularBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F511DC5C9BF00F1898B /* TPCircularBuffer.h */,
+				D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */,
+			);
+			name = TPCircularBuffer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1705F541DC5C9DA00F1898B /* TPCircularBuffer.c in Sources */,
 				D1705F221DC5B81700F1898B /* main.m in Sources */,
 				D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */,
 			);

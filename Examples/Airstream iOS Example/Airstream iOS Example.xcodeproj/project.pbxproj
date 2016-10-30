@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D12778281DC5AE6F00818DB0 /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
+		D1705F581DC5CF4300F1898B /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1705F561DC5CF4300F1898B /* TPCircularBuffer.c */; };
 		D1D329431DC5AA9A00C1944A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329421DC5AA9A00C1944A /* main.m */; };
 		D1D329461DC5AA9A00C1944A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329451DC5AA9A00C1944A /* AppDelegate.m */; };
 		D1D329491DC5AA9A00C1944A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329481DC5AA9A00C1944A /* ViewController.m */; };
@@ -37,6 +38,8 @@
 		D127782A1DC5AE7C00818DB0 /* libshairplay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libshairplay.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Airstream_iOS_Example-gvtzivefquhkrheijdiuajjoobub/Build/Products/libshairplay.a"; sourceTree = "<group>"; };
 		D1705F0A1DC5B07000F1898B /* libalac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalac.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Airstream_iOS_Example-gvtzivefquhkrheijdiuajjoobub/Build/Products/libalac.a"; sourceTree = "<group>"; };
 		D1705F0C1DC5B07200F1898B /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Airstream_iOS_Example-gvtzivefquhkrheijdiuajjoobub/Build/Products/libcrypto.a"; sourceTree = "<group>"; };
+		D1705F561DC5CF4300F1898B /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
+		D1705F571DC5CF4300F1898B /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
 		D1D3293E1DC5AA9A00C1944A /* Airstream iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airstream iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D329421DC5AA9A00C1944A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D1D329441DC5AA9A00C1944A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +73,15 @@
 				D127782A1DC5AE7C00818DB0 /* libshairplay.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1705F591DC5CF4600F1898B /* TPCircularBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F571DC5CF4300F1898B /* TPCircularBuffer.h */,
+				D1705F561DC5CF4300F1898B /* TPCircularBuffer.c */,
+			);
+			name = TPCircularBuffer;
 			sourceTree = "<group>";
 		};
 		D1D329351DC5AA9A00C1944A = {
@@ -125,6 +137,7 @@
 		D1D329671DC5AAE700C1944A /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D1705F591DC5CF4600F1898B /* TPCircularBuffer */,
 				D1D3295E1DC5AADA00C1944A /* Airstream.xcodeproj */,
 			);
 			name = Dependencies;
@@ -220,6 +233,7 @@
 			files = (
 				D1D329491DC5AA9A00C1944A /* ViewController.m in Sources */,
 				D1D329461DC5AA9A00C1944A /* AppDelegate.m in Sources */,
+				D1705F581DC5CF4300F1898B /* TPCircularBuffer.c in Sources */,
 				D1D329431DC5AA9A00C1944A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

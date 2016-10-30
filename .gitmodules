@@ -1,5 +1,5 @@
 [submodule "Carthage/Checkouts/TPCircularBuffer"]
-	path = Carthage/Checkouts/TPCircularBuffer
+	path = Examples/Airstream iOS Example/Carthage/Checkouts/TPCircularBuffer
 	url = https://github.com/michaeltyson/TPCircularBuffer.git
 [submodule "Carthage/Checkouts/shairplay"]
 	path = Carthage/Checkouts/shairplay
