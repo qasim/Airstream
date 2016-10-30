@@ -14,6 +14,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D1084E791DC653460092F982 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1084E741DC653460092F982 /* Airstream iOS Example.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D1D3293E1DC5AA9A00C1944A;
+			remoteInfo = "Airstream iOS Example";
+		};
+		D1084E801DC6534A0092F982 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1084E7B1DC6534A0092F982 /* Airstream macOS Example.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D1705F1A1DC5B81700F1898B;
+			remoteInfo = "Airstream macOS Example";
+		};
 		D18FC1CF1DC56AC200563F36 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */;
@@ -38,12 +52,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D1084E741DC653460092F982 /* Airstream iOS Example.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Airstream iOS Example.xcodeproj"; path = "Examples/Airstream iOS Example/Airstream iOS Example.xcodeproj"; sourceTree = "<group>"; };
+		D1084E7B1DC6534A0092F982 /* Airstream macOS Example.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Airstream macOS Example.xcodeproj"; path = "Examples/Airstream macOS Example/Airstream macOS Example.xcodeproj"; sourceTree = "<group>"; };
 		D1524B381DC562AF009C5D23 /* Airstream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Airstream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1524B3B1DC562AF009C5D23 /* Airstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airstream.h; sourceTree = "<group>"; };
 		D1524B3C1DC562AF009C5D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1694DF81DC572B5002978F1 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
 		D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		D18FC1B11DC568A100563F36 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shairplay.xcodeproj; path = ../Carthage/Checkouts/shairplay/extras/xcode/shairplay/shairplay.xcodeproj; sourceTree = "<group>"; };
 		D18FC1ED1DC56E9A00563F36 /* Airstream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airstream.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,12 +76,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D1084E731DC653270092F982 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				D1084E741DC653460092F982 /* Airstream iOS Example.xcodeproj */,
+				D1084E7B1DC6534A0092F982 /* Airstream macOS Example.xcodeproj */,
+			);
+			name = Examples;
+			sourceTree = "<group>";
+		};
+		D1084E751DC653460092F982 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1084E7A1DC653460092F982 /* Airstream iOS Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1084E7C1DC6534A0092F982 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1084E811DC6534A0092F982 /* Airstream macOS Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D1524B2E1DC562AF009C5D23 = {
 			isa = PBXGroup;
 			children = (
 				D1524B3A1DC562AF009C5D23 /* Airstream */,
 				D1524B391DC562AF009C5D23 /* Products */,
-				D18FC1C01DC569AD00563F36 /* Dependencies */,
+				D1084E731DC653270092F982 /* Examples */,
+				D18FC1C01DC569AD00563F36 /* Libraries */,
 				D18FC1A81DC5689200563F36 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -93,18 +134,17 @@
 		D18FC1A81DC5689200563F36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D18FC1B11DC568A100563F36 /* AudioUnit.framework */,
 				D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D18FC1C01DC569AD00563F36 /* Dependencies */ = {
+		D18FC1C01DC569AD00563F36 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */,
 			);
-			name = Dependencies;
+			name = Libraries;
 			path = Airstream;
 			sourceTree = "<group>";
 		};
@@ -177,6 +217,14 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D1084E751DC653460092F982 /* Products */;
+					ProjectRef = D1084E741DC653460092F982 /* Airstream iOS Example.xcodeproj */;
+				},
+				{
+					ProductGroup = D1084E7C1DC6534A0092F982 /* Products */;
+					ProjectRef = D1084E7B1DC6534A0092F982 /* Airstream macOS Example.xcodeproj */;
+				},
+				{
 					ProductGroup = D18FC1CB1DC56AC200563F36 /* Products */;
 					ProjectRef = D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */;
 				},
@@ -189,6 +237,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D1084E7A1DC653460092F982 /* Airstream iOS Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Airstream iOS Example.app";
+			remoteRef = D1084E791DC653460092F982 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D1084E811DC6534A0092F982 /* Airstream macOS Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Airstream macOS Example.app";
+			remoteRef = D1084E801DC6534A0092F982 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D18FC1D01DC56AC200563F36 /* libshairplay.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

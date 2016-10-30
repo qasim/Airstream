@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1084E881DC6540A0092F982 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1084E861DC6540A0092F982 /* TPCircularBuffer.c */; };
 		D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F1E1DC5B81700F1898B /* AppDelegate.m */; };
 		D1705F221DC5B81700F1898B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1705F211DC5B81700F1898B /* main.m */; };
 		D1705F241DC5B81700F1898B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1705F231DC5B81700F1898B /* Assets.xcassets */; };
 		D1705F271DC5B81700F1898B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1705F251DC5B81700F1898B /* MainMenu.xib */; };
-		D1705F541DC5C9DA00F1898B /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */; };
 		D19693771DC5DBB90035EB1E /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1705F361DC5B83100F1898B /* Airstream.framework */; };
 		D19693781DC5DBB90035EB1E /* Airstream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1705F361DC5B83100F1898B /* Airstream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -48,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D1084E861DC6540A0092F982 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
+		D1084E871DC6540A0092F982 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = ../../Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
 		D1705F1A1DC5B81700F1898B /* Airstream macOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airstream macOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1705F1D1DC5B81700F1898B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1705F1E1DC5B81700F1898B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -56,8 +58,6 @@
 		D1705F261DC5B81700F1898B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D1705F281DC5B81700F1898B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Airstream.xcodeproj; path = ../../Airstream.xcodeproj; sourceTree = "<group>"; };
-		D1705F511DC5C9BF00F1898B /* TPCircularBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.h; sourceTree = "<group>"; };
-		D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = Carthage/Checkouts/TPCircularBuffer/TPCircularBuffer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,12 +72,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D1084E851DC653F90092F982 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D1705F111DC5B81700F1898B = {
 			isa = PBXGroup;
 			children = (
 				D1705F1C1DC5B81700F1898B /* Airstream macOS Example */,
-				D1705F371DC5B83400F1898B /* Dependencies */,
 				D1705F1B1DC5B81700F1898B /* Products */,
+				D1705F371DC5B83400F1898B /* Libraries */,
+				D1084E851DC653F90092F982 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,20 +127,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D1705F371DC5B83400F1898B /* Dependencies */ = {
+		D1705F371DC5B83400F1898B /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				D1705F521DC5C9C600F1898B /* TPCircularBuffer */,
-				D1705F2E1DC5B83100F1898B /* Airstream.xcodeproj */,
 			);
-			name = Dependencies;
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		D1705F521DC5C9C600F1898B /* TPCircularBuffer */ = {
 			isa = PBXGroup;
 			children = (
-				D1705F511DC5C9BF00F1898B /* TPCircularBuffer.h */,
-				D1705F531DC5C9DA00F1898B /* TPCircularBuffer.c */,
+				D1084E871DC6540A0092F982 /* TPCircularBuffer.h */,
+				D1084E861DC6540A0092F982 /* TPCircularBuffer.c */,
 			);
 			name = TPCircularBuffer;
 			sourceTree = "<group>";
@@ -224,7 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1705F541DC5C9DA00F1898B /* TPCircularBuffer.c in Sources */,
+				D1084E881DC6540A0092F982 /* TPCircularBuffer.c in Sources */,
 				D1705F221DC5B81700F1898B /* main.m in Sources */,
 				D1705F1F1DC5B81700F1898B /* AppDelegate.m in Sources */,
 			);

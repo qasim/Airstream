@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <AudioToolbox/AudioToolbox.h>
-#import <AudioUnit/AudioUnit.h>
 
 /// Shairplay headers
 static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
