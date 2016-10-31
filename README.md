@@ -89,6 +89,100 @@ func airstream(airstream: Airstream, didSetCoverart coverart: NSData) {
 
 ### Airstream
 
+```swift
+var name: String
+```
+
+Description goes here.
+
+-
+
+```swift
+var password: String?
+```
+
+Description goes here.
+
+-
+
+```swift
+var port: Int
+```
+
+Description goes here.
+
+-
+
+```swift
+var running: Bool
+```
+
+Description goes here.
+
+-
+
+```swift
+func init()
+```
+
+Description goes here.
+
+-
+
+```swift
+func startServer()
+```
+
+Description goes here.
+
+-
+
+```swift
+var remote: AirstreamRemote?
+```
+
+Description goes here.
+
+-
+
+```swift
+var volume: Float?
+```
+
+Description goes here.
+
+-
+
+```swift
+var metadata: [String: String]?
+```
+
+Description goes here.
+
+-
+
+```swift
+var coverart: NSData?
+```
+
+Description goes here.
+
+-
+
+```swift
+var position: Int?
+```
+
+Description goes here.
+
+-
+
+```swift
+var duration: Int?
+```
+
+Description goes here.
+
 ### AirstreamRemote
 
 ### AirstreamDelegate
