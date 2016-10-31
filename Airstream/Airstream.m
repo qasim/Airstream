@@ -175,17 +175,11 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 // MARK: - Service browser
 
 - (void)startSearchingForDACPService {
-  // Stop any ongoing domain / service search
-  [self.serviceBrowser stop];
-
   // Start searching for possible domains for device's DACP service
   [self.serviceBrowser searchForRegistrationDomains];
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing {
-  // Stop any ongoing domain / service search
-  [browser stop];
-
   // Start searching for services under discovered domain
   [browser searchForServicesOfType:ASDACPServiceType inDomain:domainString];
 }
@@ -213,6 +207,9 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   // We can use this remote to perform actions now
   self.remote = [[AirstreamRemote alloc] initWithHostName:sender.hostName port:sender.port dacpID:self.dacpID activeRemoteHeader:self.activeRemoteHeader];
 
+  self.serviceBrowser = nil;
+  self.service = nil;
+
   if ([self.delegate respondsToSelector:@selector(airstream:didGainAccessToRemote:)]) {
     [self.delegate airstream:self didGainAccessToRemote:self.remote];
   }
@@ -228,6 +225,7 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 
 void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate) {
   Airstream *airstream = (__bridge Airstream *)context;
+
   AudioStreamBasicDescription streamFormat = {0};
 
   streamFormat.mFormatID = kAudioFormatLinearPCM;
@@ -249,8 +247,6 @@ void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sa
   if ([airstream.delegate respondsToSelector:@selector(airstream:willStartStreamingWithStreamFormat:)]) {
     [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
   }
-
-  [airstream startSearchingForDACPService];
 
   return NULL;
 }
@@ -284,6 +280,8 @@ void audio_remote_control_id(void *context, const char *dacpID, const char *acti
 
   airstream.dacpID = [NSString stringWithUTF8String:dacpID];
   airstream.activeRemoteHeader = [NSString stringWithUTF8String:activeRemoteHeader];
+
+  [airstream startSearchingForDACPService];
 }
 
 void audio_set_volume(void *context, void *opaque, float volume) {
