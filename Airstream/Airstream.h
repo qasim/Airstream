@@ -11,6 +11,8 @@
 
 #import "AirstreamRemote.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// RAOP server constants
 extern NSUInteger const ASDefaultPort;
 extern NSUInteger const ASMaxClients;
@@ -18,6 +20,8 @@ extern NSUInteger const ASMaxClients;
 /// Startup exceptions
 extern NSString *const ASRAOPFailedInitException;
 extern NSString *const ASDNSSDFailedInitException;
+
+NS_ASSUME_NONNULL_END
 
 @class Airstream;
 
@@ -28,38 +32,38 @@ extern NSString *const ASDNSSDFailedInitException;
 // MARK: Stream setup / teardown
 
 /// Called right before a device has connected
-- (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat;
+- (void)airstream:(nonnull Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat;
 
 /// Called right after a device has disconnected
-- (void)airstreamDidStopStreaming:(Airstream *)airstream;
+- (void)airstreamDidStopStreaming:(nonnull Airstream *)airstream;
 
 /// Called right after remote control has been setup
-- (void)airstream:(Airstream *)airstream didGainAccessToRemote:(AirstreamRemote *)remote;
+- (void)airstream:(nonnull Airstream *)airstream didGainAccessToRemote:(nonnull AirstreamRemote *)remote;
 
 // MARK: Audio processing
 
 /// Process linear PCM audio data streamed from a device
-- (void)airstream:(Airstream *)airstream processAudio:(char *)buffer length:(int)length;
+- (void)airstream:(nonnull Airstream *)airstream processAudio:(nonnull char *)buffer length:(int)length;
 
 /// Flush any audio output buffers
-- (void)airstreamFlushAudio:(Airstream *)airstream;
+- (void)airstreamFlushAudio:(nonnull Airstream *)airstream;
 
 // MARK: AirPlay data change listeners
 
-- (void)airstream:(Airstream *)airstream didSetVolume:(float)volume;
-- (void)airstream:(Airstream *)airstream didSetMetadata:(NSDictionary<NSString *, NSString *> *)metadata;
-- (void)airstream:(Airstream *)airstream didSetCoverart:(NSData *)coverart;
-- (void)airstream:(Airstream *)airstream didSetPosition:(NSUInteger)position duration:(NSUInteger)duration;
+- (void)airstream:(nonnull Airstream *)airstream didSetVolume:(float)volume;
+- (void)airstream:(nonnull Airstream *)airstream didSetMetadata:(nonnull NSDictionary<NSString *, NSString *> *)metadata;
+- (void)airstream:(nonnull Airstream *)airstream didSetCoverart:(nonnull NSData *)coverart;
+- (void)airstream:(nonnull Airstream *)airstream didSetPosition:(NSUInteger)position duration:(NSUInteger)duration;
 
 @end
 
 @interface Airstream : NSObject
 
-@property (nonatomic, weak) id <AirstreamDelegate> delegate;
+@property (nonatomic, weak, nullable) id <AirstreamDelegate> delegate;
 
 /// Server configuration
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *password;
+@property (nonatomic, nonnull) NSString *name;
+@property (nonatomic, nullable) NSString *password;
 @property (nonatomic) NSUInteger port;
 
 /// Streaming configuration
@@ -69,22 +73,22 @@ extern NSString *const ASDNSSDFailedInitException;
 
 /// Data
 @property (nonatomic, readonly) float volume;
-@property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *metadata;
-@property (nonatomic, readonly) NSData *coverart;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *metadata;
+@property (nonatomic, readonly, nullable) NSData *coverart;
 @property (nonatomic, readonly) NSUInteger position;
 @property (nonatomic, readonly) NSUInteger duration;
 
 /// Remote control
-@property (nonatomic, readonly) AirstreamRemote *remote;
+@property (nonatomic, readonly, nullable) AirstreamRemote *remote;
 
 /// Determines if server is running
 @property (nonatomic, readonly) BOOL running;
 
 /// Initializers
-- (instancetype)init;
-- (instancetype)initWithName:(NSString *)name;
-- (instancetype)initWithName:(NSString *)name password:(NSString *)password;
-- (instancetype)initWithName:(NSString *)name password:(NSString *)password port:(NSUInteger)port;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithName:(nullable NSString *)name;
+- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password;
+- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password port:(NSUInteger)port;
 
 /// Basic operations
 - (void)startServer;
@@ -93,12 +97,12 @@ extern NSString *const ASDNSSDFailedInitException;
 @end
 
 /// Shairplay headers
-void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
-void audio_process(void *context, void *opaque, const void *buffer, int bufferLength);
-void audio_flush(void *context, void *session);
-void audio_destroy(void *context, void *opaque);
-void audio_remote_control_id(void *context, const char *dacpID, const char *activeRemoteHeader);
-void audio_set_volume(void *context, void *opaque, float volume);
-void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength);
-void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength);
-void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end);
+void *_Nullable audio_init(void *_Nullable context , int bitsPerChannel, int channelsPerFrame, int sampleRate);
+void audio_process(void *_Nullable context, void *_Nullable opaque, const void *_Nullable buffer, int bufferLength);
+void audio_flush(void *_Nullable context, void *_Nullable session);
+void audio_destroy(void *_Nullable context, void *_Nullable opaque);
+void audio_remote_control_id(void *_Nullable context, const char *_Nullable dacpID, const char *_Nullable activeRemoteHeader);
+void audio_set_volume(void *_Nullable context, void *_Nullable opaque, float volume);
+void audio_set_metadata(void *_Nullable context, void *_Nullable session, const void *_Nullable buffer, int bufferLength);
+void audio_set_coverart(void *_Nullable context, void *_Nullable session, const void *_Nullable buffer, int bufferLength);
+void audio_set_progress(void *_Nullable context, void *_Nullable session, unsigned int start, unsigned int curr, unsigned int end);

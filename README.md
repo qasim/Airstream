@@ -98,7 +98,7 @@ For a more detailed example on how to use Airstream, you can refer to the exampl
 func init()
 func init(name: String?)
 func init(name: String?, password: String?)
-func init(name: String?, password: String?, port: Int?)
+func init(name: String?, password: String?, port: UInt)
 ```
 
 Basic initializers for the Airstream.
@@ -138,7 +138,7 @@ The AirPlay server's receiver password. You can set this to prompt any Apple dev
 -
 
 ```swift
-var port: Int
+var port: UInt
 ```
 
 The port where the AirPlay server should broadcast to. `5000` by default.
@@ -178,7 +178,7 @@ The metadata for the current item being streamed.
 -
 
 ```swift
-var coverart: NSData?
+var coverart: Data?
 ```
 
 The artwork (in binary) for the current item being streamed.
@@ -186,7 +186,7 @@ The artwork (in binary) for the current item being streamed.
 -
 
 ```swift
-var position: Int?
+var position: UInt
 ```
 
 The current position for the current item being streamed.
@@ -194,10 +194,82 @@ The current position for the current item being streamed.
 -
 
 ```swift
-var duration: Int?
+var duration: UInt
 ```
 
 The total duration for the current item being streamed.
+
+### AirstreamDelegate
+
+```swift
+optional func airstream(_ airstream: Airstream, willStartStreamingWithStreamFormat streamFormat: AudioStreamBasicDescription)
+```
+
+Called right after a device has connected and is about to stream audio.
+
+-
+
+```swift
+optional func airstreamDidStopStreaming(_ airstream: Airstream)
+```
+
+Called right after a device has disconnected.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, didGainAccessToRemote remote: AirstreamRemote)
+```
+
+Called right after the remote control connection has been setup.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, processAudio buffer: UnsafeMutablePointer<Int8>, length: Int32)
+```
+
+Process linear PCM audio data streamed from a device.
+
+-
+
+```swift
+optional func airstreamFlushAudio(_ airstream: Airstream)
+```
+
+Reset any audio output buffers you may be using, as the source has either changed or been disrupted.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, didSetVolume volume: Float)
+```
+
+Called when a device's volume was changed.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, didSetMetadata metadata: [String: String])
+```
+
+Called when a device's metadata for the current item being streamed was changed.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, didSetCoverart coverart: Data)
+```
+
+Called when a device's artwork for the current item being streamed was changed.
+
+-
+
+```swift
+optional func airstream(_ airstream: Airstream, didSetPosition position: UInt, duration: UInt)
+```
+
+Called when a device's current position or duration for the current item being streamed was changed.
 
 ### AirstreamRemote
 
@@ -302,78 +374,6 @@ func toggleMute()
 ```
 
 Toggle mute status.
-
-### AirstreamDelegate
-
-```swift
-func airstream(airstream: Airstream, willStartStreamingWithStreamFormat streamFormat: AudioStreamBasicDescription)
-```
-
-Called right after a device has connected and is about to stream audio.
-
--
-
-```swift
-func airstream(airstreamDidStopStreaming: Airstream)
-```
-
-Called right after a device has disconnected.
-
--
-
-```swift
-func airstream(airstream: Airstream, didGainAccessToRemote remote: AirstreamRemote)
-```
-
-Called right after the remote control connection has been setup.
-
--
-
-```swift
-func airstream(airstream: Airstream, processAudio buffer: UnsafeMutablePointer<Character>, length: Int)
-```
-
-Process linear PCM audio data streamed from a device.
-
--
-
-```swift
-func airstream(airstreamFlushAudio: Airstream)
-```
-
-Reset any audio output buffers you may be using, as the source has either changed or been disrupted.
-
--
-
-```swift
-func airstream(airstream: Airstream, didSetVolume volume: Float)
-```
-
-Called when a device's volume was changed.
-
--
-
-```swift
-func airstream(airstream: Airstream, didSetMetadata metadata: [String: String])
-```
-
-Called when a device's metadata for the current item being streamed was changed.
-
--
-
-```swift
-func airstream(airstream: Airstream, didSetCoverart coverart: NSData)
-```
-
-Called when a device's artwork for the current item being streamed was changed.
-
--
-
-```swift
-func airstream(airstream: Airstream, didSetPosition position: Int, duration: Int)
-```
-
-Called when a device's current position or duration for the current item being streamed was changed.
 
 ## Shairplay
 
