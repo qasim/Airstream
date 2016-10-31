@@ -20,6 +20,16 @@ NSUInteger const ASMaxClients = 8;
 NSString *const ASRAOPFailedInitException = @"ASRAOPInitFailedException";
 NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
 
+/// Metadata dictionary keys
+NSString *const ASMetadataSongTitleKey = @"minm";
+NSString *const ASMetadataSongAlbumKey = @"asal";
+NSString *const ASMetadataSongArtistKey = @"asar";
+NSString *const ASMetadataSongGenreKey = @"asgn";
+NSString *const ASMetadataSongTrackCountKey = @"astc";
+NSString *const ASMetadataSongTrackNumberKey = @"astn";
+NSString *const ASMetadataSongDiscCountKey = @"asdc";
+NSString *const ASMetadataSongDiscNumberKey = @"asdn";
+
 /// DACP remote constants
 NSString *const ASDACPNamePrefix = @"iTunes_Ctrl_";
 NSString *const ASDACPServiceType = @"_dacp._tcp";
@@ -44,9 +54,7 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 /// Remote control
 @property (nonatomic, readwrite) AirstreamRemote *remote;
 
-/// DACP remote control finding
-@property (nonatomic) NSNetServiceBrowser *serviceBrowser;
-@property (nonatomic) NSNetService *service;
+/// DACP service details
 @property (nonatomic) NSString *dacpID;
 @property (nonatomic) NSString *activeRemoteHeader;
 
@@ -55,6 +63,9 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 @implementation Airstream {
   dnssd_t *dnssd;
   raop_t *raop;
+
+  NSNetServiceBrowser *serviceBrowser;
+  NSNetService *dacpService;
 }
 
 // MARK: - Initializers
@@ -146,10 +157,6 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 
   dnssd_register_raop(dnssd, name, port, address, sizeof(address), 0);
 
-  // Initialize service browser
-  self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
-  self.serviceBrowser.delegate = self;
-
   self.running = YES;
 }
 
@@ -167,7 +174,7 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   raop_destroy(raop);
 
   // Stop any ongoing domain / service search
-  [self.serviceBrowser stop];
+  [serviceBrowser stop];
 
   self.running = NO;
 }
@@ -175,13 +182,20 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 // MARK: - Service browser
 
 - (void)startSearchingForDACPService {
+  // Initialize service browser
+  serviceBrowser = [[NSNetServiceBrowser alloc] init];
+  serviceBrowser.delegate = self;
+
   // Start searching for possible domains for device's DACP service
-  [self.serviceBrowser searchForRegistrationDomains];
+  [serviceBrowser searchForRegistrationDomains];
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing {
+  // Stop searching for domains
+  [serviceBrowser stop];
+
   // Start searching for services under discovered domain
-  [browser searchForServicesOfType:ASDACPServiceType inDomain:domainString];
+  [serviceBrowser searchForServicesOfType:ASDACPServiceType inDomain:domainString];
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
@@ -191,15 +205,15 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 
   NSString *dacpID = [service.name substringFromIndex:ASDACPNamePrefix.length];
   if ([self.dacpID isEqualToString:dacpID]) {
-    // Finished searching
-    [browser stop];
-
-    // Resolve service
-    service.delegate = self;
-    [service resolveWithTimeout:5.0];
+    // Stop searching for more services
+    [serviceBrowser stop];
 
     // Retain service
-    self.service = service;
+    dacpService = service;
+
+    // Resolve service address
+    dacpService.delegate = self;
+    [dacpService resolveWithTimeout:5.0];
   }
 }
 
@@ -207,16 +221,20 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   // We can use this remote to perform actions now
   self.remote = [[AirstreamRemote alloc] initWithHostName:sender.hostName port:sender.port dacpID:self.dacpID activeRemoteHeader:self.activeRemoteHeader];
 
-  self.serviceBrowser = nil;
-  self.service = nil;
+  serviceBrowser = nil;
+  dacpService = nil;
 
   if ([self.delegate respondsToSelector:@selector(airstream:didGainAccessToRemote:)]) {
     [self.delegate airstream:self didGainAccessToRemote:self.remote];
   }
 }
 
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *, NSNumber *> *)errorDict {
+  NSLog(@"Error: Could not search for DACP services %@", errorDict);
+}
+
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary<NSString *,NSNumber *> *)errorDict {
-  NSLog(@"Error: Could not resolve DACP service for remote control access to device\n%@", errorDict);
+  NSLog(@"Error: Could not resolve DACP service for remote control access to device %@", errorDict);
 }
 
 @end
@@ -245,7 +263,9 @@ void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sa
   airstream.sampleRate = sampleRate;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:willStartStreamingWithStreamFormat:)]) {
-    [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
+    });
   }
 
   return NULL;
@@ -255,7 +275,9 @@ void audio_flush(void *context, void *session) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   if ([airstream.delegate respondsToSelector:@selector(airstreamFlushAudio:)]) {
-    [airstream.delegate airstreamFlushAudio:airstream];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstreamFlushAudio:airstream];
+    });
   }
 }
 
@@ -271,7 +293,9 @@ void audio_destroy(void *context, void *opaque) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   if ([airstream.delegate respondsToSelector:@selector(airstreamDidStopStreaming:)]) {
-    [airstream.delegate airstreamDidStopStreaming:airstream];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstreamDidStopStreaming:airstream];
+    });
   }
 }
 
@@ -281,7 +305,9 @@ void audio_remote_control_id(void *context, const char *dacpID, const char *acti
   airstream.dacpID = [NSString stringWithUTF8String:dacpID];
   airstream.activeRemoteHeader = [NSString stringWithUTF8String:activeRemoteHeader];
 
-  [airstream startSearchingForDACPService];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [airstream startSearchingForDACPService];
+  });
 }
 
 void audio_set_volume(void *context, void *opaque, float volume) {
@@ -291,7 +317,9 @@ void audio_set_volume(void *context, void *opaque, float volume) {
   airstream.volume = volume;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:didSetVolume:)]) {
-    [airstream.delegate airstream:airstream didSetVolume:volume];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstream:airstream didSetVolume:volume];
+    });
   }
 }
 
@@ -325,7 +353,9 @@ void audio_set_metadata(void *context, void *session, const void *buffer, int bu
   airstream.metadata = metadata;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:didSetMetadata:)]) {
-    [airstream.delegate airstream:airstream didSetMetadata:metadata];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstream:airstream didSetMetadata:metadata];
+    });
   }
 }
 
@@ -336,7 +366,9 @@ void audio_set_coverart(void *context, void *session, const void *buffer, int bu
   airstream.coverart = coverart;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:didSetCoverart:)]) {
-    [airstream.delegate airstream:airstream didSetCoverart:coverart];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstream:airstream didSetCoverart:coverart];
+    });
   }
 }
 
@@ -350,6 +382,8 @@ void audio_set_progress(void *context, void *session, unsigned int start, unsign
   airstream.duration = duration;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:didSetPosition:duration:)]) {
-    [airstream.delegate airstream:airstream didSetPosition:position duration:duration];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [airstream.delegate airstream:airstream didSetPosition:position duration:duration];
+    });
   }
 }

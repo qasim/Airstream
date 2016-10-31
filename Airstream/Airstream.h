@@ -21,6 +21,16 @@ extern NSUInteger const ASMaxClients;
 extern NSString *const ASRAOPFailedInitException;
 extern NSString *const ASDNSSDFailedInitException;
 
+/// Metadata dictionary keys
+extern NSString *const ASMetadataSongTitleKey;
+extern NSString *const ASMetadataSongAlbumKey;
+extern NSString *const ASMetadataSongArtistKey;
+extern NSString *const ASMetadataSongGenreKey;
+extern NSString *const ASMetadataSongTrackCountKey;
+extern NSString *const ASMetadataSongTrackNumberKey;
+extern NSString *const ASMetadataSongDiscCountKey;
+extern NSString *const ASMetadataSongDiscNumberKey;
+
 NS_ASSUME_NONNULL_END
 
 @class Airstream;

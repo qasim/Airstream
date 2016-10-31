@@ -13,6 +13,14 @@
 
 @property (weak) IBOutlet NSWindow *window;
 
+@property (weak) IBOutlet NSButton *serverButton;
+@property (weak) IBOutlet NSButton *previousButton;
+@property (weak) IBOutlet NSButton *nextButton;
+@property (weak) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet NSTextField *titleField;
+@property (weak) IBOutlet NSTextField *artistField;
+@property (weak) IBOutlet NSTextField *albumField;
+
 @property (nonatomic) Airstream *airstream;
 @property (nonatomic) BOOL buffering;
 
@@ -31,7 +39,14 @@
   self.airstream = [[Airstream alloc] initWithName:@"My Mac Airstream"];
   self.airstream.delegate = self;
 
-  [self.airstream startServer];
+  [self.serverButton setTarget:self];
+  [self.serverButton setAction:@selector(handleServerButtonClicked:)];
+
+  [self.previousButton setTarget:self];
+  [self.previousButton setAction:@selector(handlePreviousButtonClicked:)];
+
+  [self.nextButton setTarget:self];
+  [self.nextButton setAction:@selector(handleNextButtonClicked:)];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -46,6 +61,39 @@
 
 - (void)handleCoreAudioError:(OSStatus)err {
   NSLog(@"Error: %@ (CoreAudio)", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
+}
+
+- (void)handleServerButtonClicked:(NSNotification *)notification {
+  if (self.airstream.running) {
+    self.serverButton.title = @"Stopping...";
+    self.serverButton.enabled = NO;
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+      // Stop the server on high priority thread
+      [self.airstream stopServer];
+
+      // Update UI on main thread
+      dispatch_async(dispatch_get_main_queue(), ^{
+        self.serverButton.title = @"Start server";
+        self.serverButton.enabled = YES;
+      });
+    });
+  } else {
+    [self.airstream startServer];
+    self.serverButton.title = @"Stop server";
+  }
+}
+
+- (void)handlePreviousButtonClicked:(NSNotification *)notification {
+  if (self.airstream.remote != nil) {
+    [self.airstream.remote previousItem];
+  }
+}
+
+- (void)handleNextButtonClicked:(NSNotification *)notification {
+  if (self.airstream.remote != nil) {
+    [self.airstream.remote nextItem];
+  }
 }
 
 // MARK: - AirstreamDelegate
@@ -126,14 +174,39 @@
 }
 
 - (void)airstreamDidStopStreaming:(Airstream *)airstream {
+  // Empty our buffer
   TPCircularBufferClear(&circularBuffer);
 
+  // Stop audio unit
   OSStatus status = AudioOutputUnitStop(audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
   }
-
   audioUnit = NULL;
+
+  // Clear all the UI elements
+  self.imageView.image = nil;
+  self.previousButton.enabled = NO;
+  self.nextButton.enabled = NO;
+  self.titleField.stringValue = @"";
+  self.artistField.stringValue = @"";
+  self.albumField.stringValue = @"";
+}
+
+- (void)airstream:(Airstream *)airstream didSetCoverart:(NSData *)coverart {
+  NSImage *image = [[NSImage alloc] initWithData:coverart];
+  [self.imageView setImage:image];
+}
+
+- (void)airstream:(Airstream *)airstream didSetMetadata:(NSDictionary<NSString *,NSString *> *)metadata {
+  self.titleField.stringValue = [metadata objectForKey:ASMetadataSongTitleKey];
+  self.artistField.stringValue = [metadata objectForKey:ASMetadataSongArtistKey];
+  self.albumField.stringValue = [metadata objectForKey:ASMetadataSongAlbumKey];
+}
+
+- (void)airstream:(Airstream *)airstream didGainAccessToRemote:(AirstreamRemote *)remote {
+  self.previousButton.enabled = YES;
+  self.nextButton.enabled = YES;
 }
 
 @end
