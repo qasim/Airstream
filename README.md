@@ -85,6 +85,11 @@ func airstream(airstream: Airstream, didSetCoverart coverart: NSData) {
 }
 ```
 
+For a more detailed example on how to use Airstream, you can refer to the example projects which implement Airstream with the streamed audio output going directly to speakers via CoreAudio:
+
+* [iOS Example](https://github.com/qasim/Airstream/tree/master/Examples/Airstream%20iOS%20Example)
+* [macOS Example](https://github.com/qasim/Airstream/tree/master/Examples/Airstream%20macOS%20Example)
+
 ## API reference
 
 ### Airstream
