@@ -26,6 +26,8 @@
 // MARK: - Application lifetime
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+  TPCircularBufferInit(&circularBuffer, 131072);
+
   self.airstream = [[Airstream alloc] initWithName:@"My Mac Airstream"];
   self.airstream.delegate = self;
 
@@ -39,9 +41,6 @@
 // MARK: - Helpers
 
 - (TPCircularBuffer *)circularBuffer {
-  if (!circularBuffer.buffer) {
-    TPCircularBufferInit(&circularBuffer, 24576*8);
-  }
   return &circularBuffer;
 }
 
@@ -157,9 +156,9 @@ OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActi
 
   int32_t availableBytes;
   SInt16 *sourceBuffer = TPCircularBufferTail(circularBuffer, &availableBytes);
+  int32_t amount = MIN(ioData->mBuffers[0].mDataByteSize, availableBytes);
 
   // Copy data from our buffer to audio unit buffer
-  int32_t amount = MIN(ioData->mBuffers[0].mDataByteSize, availableBytes);
   memcpy(ioData->mBuffers[0].mData, sourceBuffer, amount);
 
   TPCircularBufferConsume(circularBuffer, amount);

@@ -24,6 +24,8 @@
 // MARK: - Application lifetime
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  TPCircularBufferInit(&circularBuffer, 131072);
+
   self.airstream = [[Airstream alloc] initWithName:@"My iOS Airstream"];
   self.airstream.delegate = self;
 
@@ -39,9 +41,6 @@
 // MARK: - Helpers
 
 - (TPCircularBuffer *)circularBuffer {
-  if (!circularBuffer.buffer) {
-    TPCircularBufferInit(&circularBuffer, 16384);
-  }
   return &circularBuffer;
 }
 
@@ -102,15 +101,15 @@
 
 - (void)airstream:(Airstream *)airstream processAudio:(char *)buffer length:(int)length {
   // Adjust volume if needed
-  if (self.airstream.volume < 1.0) {
+  if (airstream.volume < 1.0) {
     short *shortData = (short *)buffer;
     for (int i = 0; i < length / 2; i++) {
-      shortData[i] = shortData[i] * self.airstream.volume;
+      shortData[i] = shortData[i] * airstream.volume;
     }
   }
 
   AudioBuffer audioBuffer = {
-    .mNumberChannels = (unsigned int)self.airstream.channelsPerFrame,
+    .mNumberChannels = (unsigned int)airstream.channelsPerFrame,
     .mDataByteSize = length,
     .mData = buffer
   };
@@ -157,9 +156,9 @@ OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActi
 
   int32_t availableBytes;
   SInt16 *sourceBuffer = TPCircularBufferTail(circularBuffer, &availableBytes);
+  int32_t amount = MIN(ioData->mBuffers[0].mDataByteSize, availableBytes);
 
   // Copy data from our buffer to audio unit buffer
-  int32_t amount = MIN(ioData->mBuffers[0].mDataByteSize, availableBytes);
   memcpy(ioData->mBuffers[0].mData, sourceBuffer, amount);
 
   TPCircularBufferConsume(circularBuffer, amount);
