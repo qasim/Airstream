@@ -1,4 +1,18 @@
 # Airstream
+  
+##### Table of Contents
+
+* [Installation](#install)
+  * [CocoaPods](#install-cocoapods)
+  * [Carthage](#install-carthage)
+* [Basic Usage](#basic)
+* [Api](#api)
+  * [Airstream](#api-airstream)
+  * [AirstreamDelegate](#api-airstreamdelegate)
+  * [AirstreamRemote](#api-airstreamremote)
+* [Shairplay](#shairplay)
+* [License](#license)
+ 
 
 Airstream is an iOS / macOS framework for streaming audio between Apple devices using AirPlay.
 
@@ -6,10 +20,13 @@ Airstream is an iOS / macOS framework for streaming audio between Apple devices 
 
 You can use Airstream to start an AirPlay server in your iOS or macOS applications. Then, any Apple device can stream audio to your application via AirPlay, with no extra software required.
 
+<a name="install"/>
 ## Installation
 
 Airstream can be installed by using either CocoaPods, Carthage, or just simply cloning this repository and its submodules in your project.
 
+
+<a name="install-cocoapods"/>
 ### CocoaPods
 
 [CocoaPods](https://cocoapods.org/) is a dependency manager for Swift and Objective-C Cocoa projects. You can install it with the following command:
@@ -34,6 +51,8 @@ $ pod install
 
 For more information, have a look at [Using CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html).
 
+
+<a name="install-carthage"/>
 ### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa.
@@ -59,6 +78,8 @@ $ carthage
 
 Drag the built `Airstream.framework` into your Xcode project.
 
+
+<a name="basic"/>
 ## Basic usage
 
 First, initialize and start Airstream somewhere (make sure that it's retained). You'll also want to set its delegate.
@@ -90,8 +111,12 @@ For a more detailed example on how to use Airstream, you can refer to the exampl
 * [iOS Example](https://github.com/qasim/Airstream/tree/master/Examples/Airstream%20iOS%20Example)
 * [macOS Example](https://github.com/qasim/Airstream/tree/master/Examples/Airstream%20macOS%20Example)
 
+
+<a name="api"/>
 ## API reference
 
+
+<a name="#api-airstream"/>
 ### Airstream
 
 ```swift
@@ -199,6 +224,8 @@ var duration: UInt
 
 The total duration for the current item being streamed.
 
+
+<a name="api-airstreamdelegate"/>
 ### AirstreamDelegate
 
 ```swift
@@ -271,6 +298,8 @@ optional func airstream(_ airstream: Airstream, didSetPosition position: UInt, d
 
 Called when a device's current position or duration for the current item being streamed was changed.
 
+
+<a name="api-Airstreamremote"/>
 ### AirstreamRemote
 
 ```swift
@@ -375,10 +404,13 @@ func toggleMute()
 
 Toggle mute status.
 
+
+<a name="shairplay"/>
 ## Shairplay
 
 Airstream works by depending on a C library called [shairplay](https://github.com/juhovh/shairplay), which is a free portable AirPlay server implementation. You can also visit [qasim/shairplay](https://github.com/qasim/shairplay) for the fork of shairplay that is used by Airstream, which compiles on both iOS and macOS.
 
+<a name="license"/>
 ## License
 
 Airstream is released under the MIT license. See [LICENSE](./LICENSE) for details.
