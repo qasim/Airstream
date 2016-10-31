@@ -120,7 +120,7 @@ Gracefully shuts down the AirPlay server.
 var name: String
 ```
 
-The AirPlay server's receiver name. This is what is shown to Apple devices when they go to connect to your Airstream. `"My Airstream"` by default.
+The AirPlay server's receiver name. This is what is shown to devices when they go to connect to your AirPlay server. `"My Airstream"` by default.
 
 -
 
@@ -128,7 +128,7 @@ The AirPlay server's receiver name. This is what is shown to Apple devices when 
 var password: String?
 ```
 
-The AirPlay server's receiver password. You can set this to prompt any Apple devices that wish to connect to your Airstream with a password challenge.
+The AirPlay server's receiver password. You can set this to prompt any Apple devices that wish to connect to your AirPlay server with a password challenge.
 
 -
 
@@ -152,7 +152,7 @@ Determines whether the server is currently running or not.
 var remote: AirstreamRemote?
 ```
 
-The reference to this Airstream's remote control object, which can be used to send commands to the connected Apple device.
+The reference to this Airstream's remote control object, which can be used to send commands to the connected device. This variable may not be set until the delegate has called `airstream:didGainAccessToRemote:`.
 
 -
 
@@ -176,7 +176,7 @@ The metadata for the current item being streamed.
 var coverart: NSData?
 ```
 
-The coverart (in binary) for the current item being streamed.
+The artwork (in binary) for the current item being streamed.
 
 -
 
@@ -196,7 +196,179 @@ The total duration for the current item being streamed.
 
 ### AirstreamRemote
 
+```swift
+func play()
+```
+
+Start playback.
+
+-
+
+```swift
+func pause()
+```
+
+Pause playback.
+
+-
+
+```swift
+func stop()
+```
+
+Stop playback.
+
+-
+
+```swift
+func playPause()
+```
+
+Toggle between starting and pausing playback.
+
+-
+
+```swift
+func playResume()
+```
+
+Play after fast forwarding or rewinding.
+
+-
+
+```swift
+func forward()
+```
+
+Begin fast forward.
+
+-
+
+```swift
+func rewind()
+```
+
+Begin rewind.
+
+-
+
+```swift
+func nextItem()
+```
+
+Play next item in playlist.
+
+-
+
+```swift
+func pause()
+```
+
+Pause previous item in playlist.
+
+-
+
+```swift
+func shuffle()
+```
+
+Shuffle items in playlist.
+
+-
+
+```swift
+func increaseVolume()
+```
+
+Turn audio volume up.
+
+-
+
+```swift
+func decreaseVolume()
+```
+
+Turn audio volume down.
+
+-
+
+```swift
+func toggleMute()
+```
+
+Toggle mute status.
+
 ### AirstreamDelegate
+
+```swift
+func airstream(airstream: Airstream, willStartStreamingWithStreamFormat streamFormat: AudioStreamBasicDescription)
+```
+
+Called right after a device has connected and is about to stream audio.
+
+-
+
+```swift
+func airstream(airstreamDidStopStreaming: Airstream)
+```
+
+Called right after a device has disconnected.
+
+-
+
+```swift
+func airstream(airstream: Airstream, didGainAccessToRemote remote: AirstreamRemote)
+```
+
+Called right after the remote control connection has been setup.
+
+-
+
+```swift
+func airstream(airstream: Airstream, processAudio buffer: UnsafeMutablePointer<Character>, length: Int)
+```
+
+Process linear PCM audio data streamed from a device.
+
+-
+
+```swift
+func airstream(airstreamFlushAudio: Airstream)
+```
+
+Reset any audio output buffers you may be using, as the source has either changed or been disrupted.
+
+-
+
+```swift
+func airstream(airstream: Airstream, didSetVolume volume: Float)
+```
+
+Called when a device's volume was changed.
+
+-
+
+```swift
+func airstream(airstream: Airstream, didSetMetadata metadata: [String: String])
+```
+
+Called when a device's metadata for the current item being streamed was changed.
+
+-
+
+```swift
+func airstream(airstream: Airstream, didSetCoverart coverart: NSData)
+```
+
+Called when a device's artwork for the current item being streamed was changed.
+
+-
+
+```swift
+func airstream(airstream: Airstream, didSetPosition position: Int, duration: Int)
+```
+
+Called when a device's current position or duration for the current item being streamed was changed.
 
 ## Shairplay
 
