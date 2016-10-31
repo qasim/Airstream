@@ -90,42 +90,13 @@ func airstream(airstream: Airstream, didSetCoverart coverart: NSData) {
 ### Airstream
 
 ```swift
-var name: String
-```
-
-Description goes here.
-
--
-
-```swift
-var password: String?
-```
-
-Description goes here.
-
--
-
-```swift
-var port: Int
-```
-
-Description goes here.
-
--
-
-```swift
-var running: Bool
-```
-
-Description goes here.
-
--
-
-```swift
 func init()
+func init(name: String?)
+func init(name: String?, password: String?)
+func init(name: String?, password: String?, port: Int?)
 ```
 
-Description goes here.
+Basic initializers for the Airstream.
 
 -
 
@@ -133,7 +104,47 @@ Description goes here.
 func startServer()
 ```
 
-Description goes here.
+Starts the AirPlay server and begins broadcasting.
+
+-
+
+```swift
+func stopServer()
+```
+
+Gracefully shuts down the AirPlay server.
+
+-
+
+```swift
+var name: String
+```
+
+The AirPlay server's receiver name. This is what is shown to Apple devices when they go to connect to your Airstream. `"My Airstream"` by default.
+
+-
+
+```swift
+var password: String?
+```
+
+The AirPlay server's receiver password. You can set this to prompt any Apple devices that wish to connect to your Airstream with a password challenge.
+
+-
+
+```swift
+var port: Int
+```
+
+The port where the AirPlay server should broadcast to. `5000` by default.
+
+-
+
+```swift
+var running: Bool
+```
+
+Determines whether the server is currently running or not.
 
 -
 
@@ -141,7 +152,7 @@ Description goes here.
 var remote: AirstreamRemote?
 ```
 
-Description goes here.
+The reference to this Airstream's remote control object, which can be used to send commands to the connected Apple device.
 
 -
 
@@ -149,7 +160,7 @@ Description goes here.
 var volume: Float?
 ```
 
-Description goes here.
+The connected Apple device's volume.
 
 -
 
@@ -157,7 +168,7 @@ Description goes here.
 var metadata: [String: String]?
 ```
 
-Description goes here.
+The metadata for the current item being streamed.
 
 -
 
@@ -165,7 +176,7 @@ Description goes here.
 var coverart: NSData?
 ```
 
-Description goes here.
+The coverart (in binary) for the current item being streamed.
 
 -
 
@@ -173,7 +184,7 @@ Description goes here.
 var position: Int?
 ```
 
-Description goes here.
+The current position for the current item being streamed.
 
 -
 
@@ -181,7 +192,7 @@ Description goes here.
 var duration: Int?
 ```
 
-Description goes here.
+The total duration for the current item being streamed.
 
 ### AirstreamRemote
 
