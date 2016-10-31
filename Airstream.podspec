@@ -1,11 +1,12 @@
-Pod::Spec.new do |spec|
-  spec.name         = 'Airstream'
-  spec.version      = '0.1.0'
-  spec.license      = { :type => 'MIT' }
-  spec.homepage     = 'https://github.com/qasim/Airstream'
-  spec.authors      = { 'Qasim Iqbal' => 'me@qas.im' }
-  spec.summary      = 'Stream audio from one Apple device to another, using AirPlay.'
-  spec.source       = { :git => 'https://github.com/qasim/Airstream.git', :tag => '0.1.0' }
-  spec.source_files = 'Airstream.{h,m}'
-  spec.frameworks   = 'AudioToolbox', 'AudioUnit'
+Pod::Spec.new do |s|
+  s.name          = 'Airstream'
+  s.version       = '0.1.0'
+  s.summary       = 'Stream audio from one Apple device to another, using AirPlay.'
+  s.homepage      = 'https://github.com/qasim/Airstream'
+  s.license       = { :type => 'MIT', :file => 'LICENSE' }
+  s.authors       = { 'Qasim Iqbal' => 'me@qas.im' }
+  s.source        = { :git => 'https://github.com/qasim/Airstream.git', :tag => s.version }
+  s.source_files  = '*.{h,m}'
+  s.frameworks    = 'Foundation', 'AudioToolbox'
+  s.exclude_files = 'Examples'
 end
