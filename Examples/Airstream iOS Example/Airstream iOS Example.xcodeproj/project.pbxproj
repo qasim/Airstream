@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D1084E841DC653C70092F982 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D1084E821DC653C70092F982 /* TPCircularBuffer.c */; };
 		D1084E8A1DC659680092F982 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1084E891DC659680092F982 /* AudioToolbox.framework */; };
-		D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
-		D18D317A1DC5D80000AD55A2 /* Airstream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D17552A51DC6C926002AE75A /* Airstream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; };
+		D17552A61DC6C926002AE75A /* Airstream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1D329661DC5AADA00C1944A /* Airstream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D1D329431DC5AA9A00C1944A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329421DC5AA9A00C1944A /* main.m */; };
 		D1D329461DC5AA9A00C1944A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329451DC5AA9A00C1944A /* AppDelegate.m */; };
 		D1D329491DC5AA9A00C1944A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D329481DC5AA9A00C1944A /* ViewController.m */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D18D317B1DC5D80000AD55A2 /* PBXContainerItemProxy */ = {
+		D17552A71DC6C926002AE75A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D1D3295E1DC5AADA00C1944A /* Airstream.xcodeproj */;
 			proxyType = 1;
@@ -43,7 +43,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D18D317A1DC5D80000AD55A2 /* Airstream.framework in Embed Frameworks */,
+				D17552A61DC6C926002AE75A /* Airstream.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,7 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1084E8A1DC659680092F982 /* AudioToolbox.framework in Frameworks */,
-				D18D31791DC5D80000AD55A2 /* Airstream.framework in Frameworks */,
+				D17552A51DC6C926002AE75A /* Airstream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +171,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D18D317C1DC5D80000AD55A2 /* PBXTargetDependency */,
+				D17552A81DC6C926002AE75A /* PBXTargetDependency */,
 			);
 			name = "Airstream iOS Example";
 			productName = "Airstream iOS Example";
@@ -255,10 +255,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D18D317C1DC5D80000AD55A2 /* PBXTargetDependency */ = {
+		D17552A81DC6C926002AE75A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Airstream;
-			targetProxy = D18D317B1DC5D80000AD55A2 /* PBXContainerItemProxy */;
+			targetProxy = D17552A71DC6C926002AE75A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

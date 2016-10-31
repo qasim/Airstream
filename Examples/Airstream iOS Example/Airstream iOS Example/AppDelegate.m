@@ -21,6 +21,8 @@
   TPCircularBuffer circularBuffer;
 }
 
+// MARK: - Application lifetime
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   self.airstream = [[Airstream alloc] initWithName:@"My iOS Airstream"];
   self.airstream.delegate = self;
@@ -43,6 +45,10 @@
   return &circularBuffer;
 }
 
+- (void)handleCoreAudioError:(OSStatus)err {
+  NSLog(@"Error: %@ (CoreAudio)", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
+}
+
 // MARK: - AirstreamDelegate
 
 - (void)airstream:(Airstream *)airstream willStartStreamingWithStreamFormat:(AudioStreamBasicDescription)streamFormat {
@@ -58,12 +64,14 @@
   OSStatus status = AudioComponentInstanceNew(comp, &audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Enable input
   status = AudioUnitSetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &streamFormat, sizeof(streamFormat));
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Set up callbacks
@@ -74,18 +82,21 @@
   status = AudioUnitSetProperty(audioUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Global, 0, &renderCallback, sizeof(renderCallback));
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Initialize audio unit
   status = AudioUnitInitialize(audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Start audio unit
   status = AudioOutputUnitStart(audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 }
 
@@ -126,13 +137,9 @@
   audioUnit = NULL;
 }
 
-- (void)handleCoreAudioError:(OSStatus)err {
-  // TODO: Improve error handling
-  NSLog(@"CoreAudio error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
-  exit(-1);
-}
-
 @end
+
+// MARK: - CoreAudio
 
 /// Callback for AudioUnit streaming to output device
 OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {

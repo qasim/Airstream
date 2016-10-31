@@ -23,6 +23,8 @@
   TPCircularBuffer circularBuffer;
 }
 
+// MARK: - Application lifetime
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   self.airstream = [[Airstream alloc] initWithName:@"My Mac Airstream"];
   self.airstream.delegate = self;
@@ -44,9 +46,7 @@
 }
 
 - (void)handleCoreAudioError:(OSStatus)err {
-  // TODO: Improve error handling
-  NSLog(@"CoreAudio error: %@", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
-  exit(-1);
+  NSLog(@"Error: %@ (CoreAudio)", [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil]);
 }
 
 // MARK: - AirstreamDelegate
@@ -64,12 +64,14 @@
   OSStatus status = AudioComponentInstanceNew(comp, &audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Enable input
   status = AudioUnitSetProperty(audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &streamFormat, sizeof(streamFormat));
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Set up callbacks
@@ -80,18 +82,21 @@
   status = AudioUnitSetProperty(audioUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Global, 0, &renderCallback, sizeof(renderCallback));
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Initialize audio unit
   status = AudioUnitInitialize(audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 
   // Start audio unit
   status = AudioOutputUnitStart(audioUnit);
   if (status != noErr) {
     [self handleCoreAudioError:status];
+    return;
   }
 }
 
@@ -133,6 +138,8 @@
 }
 
 @end
+
+// MARK: - CoreAudio
 
 /// Callback for AudioUnit streaming to output device
 OSStatus OutputRenderCallback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData) {

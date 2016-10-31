@@ -12,6 +12,14 @@
 #import <shairplay/dnssd.h>
 #import <shairplay/raop.h>
 
+/// RAOP server constants
+NSUInteger const ASDefaultPort = 5000;
+NSUInteger const ASMaxClients = 8;
+
+/// Startup exceptions
+NSString *const ASRAOPFailedInitException = @"ASRAOPInitFailedException";
+NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
+
 @interface Airstream ()
 
 /// AirPlay streaming configuration
@@ -36,26 +44,18 @@
   raop_t *raop;
 }
 
-// MARK: - Init
+// MARK: - Initializers
+
+- (instancetype)init {
+  return [self initWithName:nil password:nil port:ASDefaultPort];
+}
 
 - (instancetype)initWithName:(NSString *)name {
-  self = [self initWithName:name password:nil port:DEFAULT_PORT];
-
-  if (!self) {
-    return nil;
-  }
-
-  return self;
+  return [self initWithName:name password:nil port:ASDefaultPort];
 }
 
 - (instancetype)initWithName:(NSString *)name password:(NSString *)password {
-  self = [self initWithName:name password:password port:DEFAULT_PORT];
-
-  if (!self) {
-    return nil;
-  }
-
-  return self;
+  return [self initWithName:name password:password port:ASDefaultPort];
 }
 
 - (instancetype)initWithName:(NSString *)name password:(NSString *)password port:(NSUInteger)port {
@@ -72,7 +72,7 @@
   }
 
   if (password != nil) {
-    self.password = name;
+    self.password = password;
   } else {
     self.password = nil;
   }
@@ -106,16 +106,16 @@
   raopCallbacks.audio_set_coverart = audio_set_coverart;
 
   // Server settings
-  const char address[] = { 0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22 };
+  const char address[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
   const char *name = [self.name UTF8String];
   const char *password = [self.password UTF8String];
   unsigned short port = self.port;
 
   // Start RAOP server
-  raop = raop_init(10, &raopCallbacks, AIRPORT_KEY, NULL);
+  raop = raop_init(ASMaxClients, &raopCallbacks, AIRPORT_KEY, NULL);
   if (raop == NULL) {
-    // TODO: error handling
-    exit(-1);
+    NSLog(@"Error: failed to initialize RAOP server");
+    return;
   }
 
   raop_set_log_level(raop, RAOP_LOG_INFO);
@@ -125,9 +125,9 @@
   int error;
   dnssd = dnssd_init(&error);
   if (error) {
-    // TODO: error handling
     raop_destroy(raop);
-    exit(-1);
+    NSLog(@"Error: failed to initialize DNS-SD service with error code %d", error);
+    return;
   }
 
   dnssd_register_raop(dnssd, name, port, address, sizeof(address), 0);
