@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import "AirstreamRemote.h"
+
 /// RAOP server constants
 extern NSUInteger const ASDefaultPort;
 extern NSUInteger const ASMaxClients;
@@ -31,6 +33,9 @@ extern NSString *const ASDNSSDFailedInitException;
 /// Called right after a device has disconnected
 - (void)airstreamDidStopStreaming:(Airstream *)airstream;
 
+/// Called right after remote control has been setup
+- (void)airstream:(Airstream *)airstream didGainAccessToRemote:(AirstreamRemote *)remote;
+
 // MARK: Audio processing
 
 /// Process linear PCM audio data streamed from a device
@@ -52,24 +57,27 @@ extern NSString *const ASDNSSDFailedInitException;
 
 @property (nonatomic, weak) id <AirstreamDelegate> delegate;
 
-/// AirPlay server configuration
+/// Server configuration
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *password;
 @property (nonatomic) NSUInteger port;
 
-/// AirPlay streaming configuration
+/// Streaming configuration
 @property (nonatomic, readonly) NSUInteger bitsPerChannel;
 @property (nonatomic, readonly) NSUInteger channelsPerFrame;
 @property (nonatomic, readonly) NSUInteger sampleRate;
 
-/// AirPlay data
+/// Data
 @property (nonatomic, readonly) float volume;
 @property (nonatomic, readonly) NSDictionary<NSString *, NSString *> *metadata;
 @property (nonatomic, readonly) NSData *coverart;
 @property (nonatomic, readonly) NSUInteger position;
 @property (nonatomic, readonly) NSUInteger duration;
 
-/// Determines if the AirPlay server is running
+/// Remote control
+@property (nonatomic, readonly) AirstreamRemote *remote;
+
+/// Determines if server is running
 @property (nonatomic, readonly) BOOL running;
 
 /// Initializers
@@ -85,11 +93,12 @@ extern NSString *const ASDNSSDFailedInitException;
 @end
 
 /// Shairplay headers
-static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
-static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength);
-static void audio_flush(void *context, void *session);
-static void audio_destroy(void *context, void *opaque);
-static void audio_set_volume(void *context, void *opaque, float volume);
-static void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength);
-static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength);
-static void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end);
+void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate);
+void audio_process(void *context, void *opaque, const void *buffer, int bufferLength);
+void audio_flush(void *context, void *session);
+void audio_destroy(void *context, void *opaque);
+void audio_remote_control_id(void *context, const char *dacpID, const char *activeRemoteHeader);
+void audio_set_volume(void *context, void *opaque, float volume);
+void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength);
+void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength);
+void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end);

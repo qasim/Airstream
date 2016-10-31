@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D1524B3D1DC562AF009C5D23 /* Airstream.h in Headers */ = {isa = PBXBuildFile; fileRef = D1524B3B1DC562AF009C5D23 /* Airstream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D17552B51DC7018B002AE75A /* AirstreamRemote.h in Headers */ = {isa = PBXBuildFile; fileRef = D17552B31DC7018B002AE75A /* AirstreamRemote.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D17552B61DC7018B002AE75A /* AirstreamRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = D17552B41DC7018B002AE75A /* AirstreamRemote.m */; };
 		D18FC1B01DC5689C00563F36 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */; };
 		D18FC1E31DC56BBF00563F36 /* libshairplay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18FC1D01DC56AC200563F36 /* libshairplay.a */; };
 		D18FC1EE1DC56E9A00563F36 /* Airstream.m in Sources */ = {isa = PBXBuildFile; fileRef = D18FC1ED1DC56E9A00563F36 /* Airstream.m */; };
@@ -58,6 +60,8 @@
 		D1524B3B1DC562AF009C5D23 /* Airstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airstream.h; sourceTree = "<group>"; };
 		D1524B3C1DC562AF009C5D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1694DF81DC572B5002978F1 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
+		D17552B31DC7018B002AE75A /* AirstreamRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirstreamRemote.h; sourceTree = "<group>"; };
+		D17552B41DC7018B002AE75A /* AirstreamRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirstreamRemote.m; sourceTree = "<group>"; };
 		D18FC1AF1DC5689C00563F36 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D18FC1B71DC5699D00563F36 /* shairplay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shairplay.xcodeproj; path = ../Carthage/Checkouts/shairplay/extras/xcode/shairplay/shairplay.xcodeproj; sourceTree = "<group>"; };
 		D18FC1ED1DC56E9A00563F36 /* Airstream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airstream.m; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				D1694DF81DC572B5002978F1 /* Airport.h */,
 				D1524B3B1DC562AF009C5D23 /* Airstream.h */,
 				D18FC1ED1DC56E9A00563F36 /* Airstream.m */,
+				D17552B31DC7018B002AE75A /* AirstreamRemote.h */,
+				D17552B41DC7018B002AE75A /* AirstreamRemote.m */,
 				D1524B3C1DC562AF009C5D23 /* Info.plist */,
 			);
 			path = Airstream;
@@ -165,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1524B3D1DC562AF009C5D23 /* Airstream.h in Headers */,
+				D17552B51DC7018B002AE75A /* AirstreamRemote.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D17552B61DC7018B002AE75A /* AirstreamRemote.m in Sources */,
 				D18FC1EE1DC56E9A00563F36 /* Airstream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

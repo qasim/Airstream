@@ -20,7 +20,11 @@ NSUInteger const ASMaxClients = 8;
 NSString *const ASRAOPFailedInitException = @"ASRAOPInitFailedException";
 NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
 
-@interface Airstream ()
+/// DACP remote constants
+NSString *const ASDACPNamePrefix = @"iTunes_Ctrl_";
+NSString *const ASDACPServiceType = @"_dacp._tcp";
+
+@interface Airstream () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 
 /// AirPlay streaming configuration
 @property (nonatomic, readwrite) NSUInteger bitsPerChannel;
@@ -36,6 +40,15 @@ NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
 
 /// Determines if the AirPlay server is running
 @property (nonatomic, readwrite) BOOL running;
+
+/// Remote control
+@property (nonatomic, readwrite) AirstreamRemote *remote;
+
+/// DACP remote control finding
+@property (nonatomic) NSNetServiceBrowser *serviceBrowser;
+@property (nonatomic) NSNetService *service;
+@property (nonatomic) NSString *dacpID;
+@property (nonatomic) NSString *activeRemoteHeader;
 
 @end
 
@@ -100,6 +113,7 @@ NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
   raopCallbacks.audio_flush = audio_flush;
   raopCallbacks.audio_process = audio_process;
   raopCallbacks.audio_destroy = audio_destroy;
+  raopCallbacks.audio_remote_control_id = audio_remote_control_id;
   raopCallbacks.audio_set_volume = audio_set_volume;
   raopCallbacks.audio_set_progress = audio_set_progress;
   raopCallbacks.audio_set_metadata = audio_set_metadata;
@@ -132,6 +146,10 @@ NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
 
   dnssd_register_raop(dnssd, name, port, address, sizeof(address), 0);
 
+  // Initialize service browser
+  self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+  self.serviceBrowser.delegate = self;
+
   self.running = YES;
 }
 
@@ -148,12 +166,67 @@ NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
   raop_stop(raop);
   raop_destroy(raop);
 
+  // Stop any ongoing domain / service search
+  [self.serviceBrowser stop];
+
   self.running = NO;
+}
+
+// MARK: - Service browser
+
+- (void)startSearchingForDACPService {
+  // Stop any ongoing domain / service search
+  [self.serviceBrowser stop];
+
+  // Start searching for possible domains for device's DACP service
+  [self.serviceBrowser searchForRegistrationDomains];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing {
+  // Stop any ongoing domain / service search
+  [browser stop];
+
+  // Start searching for services under discovered domain
+  [browser searchForServicesOfType:ASDACPServiceType inDomain:domainString];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+  if (![service.name hasPrefix:ASDACPNamePrefix]) {
+    return;
+  }
+
+  NSString *dacpID = [service.name substringFromIndex:ASDACPNamePrefix.length];
+  if ([self.dacpID isEqualToString:dacpID]) {
+    // Finished searching
+    [browser stop];
+
+    // Resolve service
+    service.delegate = self;
+    [service resolveWithTimeout:5.0];
+
+    // Retain service
+    self.service = service;
+  }
+}
+
+- (void)netServiceDidResolveAddress:(NSNetService *)sender {
+  // We can use this remote to perform actions now
+  self.remote = [[AirstreamRemote alloc] initWithHostName:sender.hostName port:sender.port dacpID:self.dacpID activeRemoteHeader:self.activeRemoteHeader];
+
+  if ([self.delegate respondsToSelector:@selector(airstream:didGainAccessToRemote:)]) {
+    [self.delegate airstream:self didGainAccessToRemote:self.remote];
+  }
+}
+
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary<NSString *,NSNumber *> *)errorDict {
+  NSLog(@"Error: Could not resolve DACP service for remote control access to device\n%@", errorDict);
 }
 
 @end
 
-static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate) {
+// MARK: - Shairplay callbacks
+
+void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame, int sampleRate) {
   Airstream *airstream = (__bridge Airstream *)context;
   AudioStreamBasicDescription streamFormat = {0};
 
@@ -177,10 +250,12 @@ static void *audio_init(void *context, int bitsPerChannel, int channelsPerFrame,
     [airstream.delegate airstream:airstream willStartStreamingWithStreamFormat:streamFormat];
   }
 
+  [airstream startSearchingForDACPService];
+
   return NULL;
 }
 
-static void audio_flush(void *context, void *session) {
+void audio_flush(void *context, void *session) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   if ([airstream.delegate respondsToSelector:@selector(airstreamFlushAudio:)]) {
@@ -188,7 +263,7 @@ static void audio_flush(void *context, void *session) {
   }
 }
 
-static void audio_process(void *context, void *opaque, const void *buffer, int bufferLength) {
+void audio_process(void *context, void *opaque, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   if ([airstream.delegate respondsToSelector:@selector(airstream:processAudio:length:)]) {
@@ -196,7 +271,7 @@ static void audio_process(void *context, void *opaque, const void *buffer, int b
   }
 }
 
-static void audio_destroy(void *context, void *opaque) {
+void audio_destroy(void *context, void *opaque) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   if ([airstream.delegate respondsToSelector:@selector(airstreamDidStopStreaming:)]) {
@@ -204,7 +279,14 @@ static void audio_destroy(void *context, void *opaque) {
   }
 }
 
-static void audio_set_volume(void *context, void *opaque, float volume) {
+void audio_remote_control_id(void *context, const char *dacpID, const char *activeRemoteHeader) {
+  Airstream *airstream = (__bridge Airstream *)context;
+
+  airstream.dacpID = [NSString stringWithUTF8String:dacpID];
+  airstream.activeRemoteHeader = [NSString stringWithUTF8String:activeRemoteHeader];
+}
+
+void audio_set_volume(void *context, void *opaque, float volume) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   volume = pow(10.0, 0.05 * volume);
@@ -215,7 +297,7 @@ static void audio_set_volume(void *context, void *opaque, float volume) {
   }
 }
 
-static void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength) {
+void audio_set_metadata(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
   NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
 
@@ -249,7 +331,7 @@ static void audio_set_metadata(void *context, void *session, const void *buffer,
   }
 }
 
-static void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength) {
+void audio_set_coverart(void *context, void *session, const void *buffer, int bufferLength) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   NSData *coverart = [NSData dataWithBytes:buffer length:bufferLength];
@@ -260,7 +342,7 @@ static void audio_set_coverart(void *context, void *session, const void *buffer,
   }
 }
 
-static void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end) {
+void audio_set_progress(void *context, void *session, unsigned int start, unsigned int curr, unsigned int end) {
   Airstream *airstream = (__bridge Airstream *)context;
 
   NSUInteger position = (curr - start) / airstream.sampleRate;
