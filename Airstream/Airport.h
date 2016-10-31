@@ -9,6 +9,9 @@
 #ifndef AIRPORT_H
 #define AIRPORT_H
 
+// This RSA key is taken from https://github.com/abrasive/shairport
+// Thank you James Laird-Wah :)
+
 #define AIRPORT_KEY " \
 -----BEGIN RSA PRIVATE KEY-----\
 MIIEpQIBAAKCAQEA59dE8qLieItsH1WgjrcFRKj6eUWqi+bGLOX1HL3U3GhC/j0Qg90u3sG/1CUt\
