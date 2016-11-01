@@ -16,6 +16,7 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
   * [AirstreamDelegate](#airstreamdelegate)
   * [AirstreamRemote](#airstreamremote)
 * [Shairplay](#shairplay)
+* [Disclaimer](#disclaimer)
 * [License](#license)
 
 ## Installation
@@ -384,6 +385,10 @@ Toggle mute status.
 ## Shairplay
 
 Airstream works by depending on a C library called [shairplay](https://github.com/juhovh/shairplay), which is a free portable AirPlay server implementation. You can also visit [qasim/shairplay](https://github.com/qasim/shairplay) for the fork of shairplay that is used by Airstream, which compiles on both iOS and macOS.
+
+## Disclaimer
+
+This framework is really meant for educational purposes only. I hold no guarantee that integrating this framework into your application will allow you to pass Apple's app review process.
 
 ## License
 
