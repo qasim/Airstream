@@ -8,6 +8,8 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
 
 ## Table of contents
 
+* [Installation](#installation)
+  * [Carthage](#carthage)
 * [Basic usage](#basic-usage)
 * [API reference](#api-reference)
   * [Airstream](#airstream-1)
@@ -15,6 +17,37 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
   * [AirstreamRemote](#airstreamremote)
 * [Shairplay](#shairplay)
 * [License](#license)
+
+## Installation
+
+Airstream can be installed by using either Carthage or just simply cloning this repository and its submodules in your project.
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa.
+
+You can install it using [Homebrew](http://brew.sh/) with the following commands:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+Then, to include Airstream in your project, specify it in your `Cartfile`:
+
+```ruby
+github "qasim/Airstream" ~> 0.1
+```
+
+Now you can install Airstream:
+
+```bash
+$ carthage update
+```
+
+You should now see a `Carthage/Builds` directory. From there, you can drag the built `Airstream.framework` for your platform of choice into your Xcode project.
+
+Make sure that your project's target has the path to this framework in its `Framework Search Paths`, under the `Build settings` tab. For example, if I was building a macOS app that uses Airstream, I would include `Carthage/Builds/Mac` in my target's search path.
 
 ## Basic usage
 
