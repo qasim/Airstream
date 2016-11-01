@@ -17,10 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSUInteger const ASDefaultPort;
 extern NSUInteger const ASMaxClients;
 
-/// Startup exceptions
-extern NSString *const ASRAOPFailedInitException;
-extern NSString *const ASDNSSDFailedInitException;
-
 /// Metadata dictionary keys
 extern NSString *const ASMetadataSongTitleKey;
 extern NSString *const ASMetadataSongAlbumKey;

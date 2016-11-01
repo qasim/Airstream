@@ -16,10 +16,6 @@
 NSUInteger const ASDefaultPort = 5000;
 NSUInteger const ASMaxClients = 8;
 
-/// Startup exceptions
-NSString *const ASRAOPFailedInitException = @"ASRAOPInitFailedException";
-NSString *const ASDNSSDFailedInitException = @"ASDNSSDFailedInitException";
-
 /// Metadata dictionary keys
 NSString *const ASMetadataSongTitleKey = @"minm";
 NSString *const ASMetadataSongAlbumKey = @"asal";
