@@ -36,7 +36,7 @@
 }
 
 - (void)sendCommand:(NSString *)command {
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%lu/ctrl-int/1/%@", self.hostName, self.port, command]];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%lu/ctrl-int/1/%@", self.hostName, (long)self.port, command]];
   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 
   [request setHTTPMethod:@"GET"];

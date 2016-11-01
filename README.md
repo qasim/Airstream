@@ -8,9 +8,6 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
 
 ## Table of contents
 
-* [Installation](#installation)
-  * [CocoaPods](#cocoapods)
-  * [Carthage](#carthage)
 * [Basic usage](#basic-usage)
 * [API reference](#api-reference)
   * [Airstream](#airstream-1)
@@ -18,59 +15,6 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
   * [AirstreamRemote](#airstreamremote)
 * [Shairplay](#shairplay)
 * [License](#license)
-
-## Installation
-
-Airstream can be installed by using either CocoaPods, Carthage, or just simply cloning this repository and its submodules in your project.
-
-### CocoaPods
-
-[CocoaPods](https://cocoapods.org/) is a dependency manager for Swift and Objective-C Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-Then, to include Airstream in your project, specify it in your `Podfile`:
-
-```ruby
-target 'MyApp' do
-  pod 'Airstream', '~> 0.1'
-end
-```
-
-Now you can install Airstream into your Xcode project:
-
-```bash
-$ pod install
-```
-
-For more information, have a look at [Using CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html).
-
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Cocoa.
-
-You can install it using [Homebrew](http://brew.sh/) with the following commands:
-
-```bash
-$ brew update
-$ brew install carthage
-```
-
-Then, to include Airstream in your project, specify it in your `Cartfile`:
-
-```ruby
-github "qasim/Airstream" ~> 0.1
-```
-
-Now you can install Airstream:
-
-```bash
-$ carthage
-```
-
-Drag the built `Airstream.framework` into your Xcode project.
 
 ## Basic usage
 
