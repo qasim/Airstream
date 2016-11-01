@@ -2,7 +2,7 @@
 
 > An iOS / macOS framework for streaming audio between Apple devices using AirPlay.
 
-[ An example gif of Airstream running on Mac, while iPhone is AirPlaying to it ]
+![An example gif](https://s15.postimg.org/sdw8gr0bf/screen_recording.gif)
 
 You can use Airstream to start an AirPlay server in your iOS or macOS applications. Then, any Apple device can stream audio to your application via AirPlay, with no extra software required.
 
