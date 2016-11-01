@@ -13,7 +13,7 @@ You can use Airstream to start an AirPlay server in your iOS or macOS applicatio
   * [Carthage](#carthage)
 * [Basic usage](#basic-usage)
 * [API reference](#api-reference)
-  * [Airstream](#airstream)
+  * [Airstream](#airstream-1)
   * [AirstreamDelegate](#airstreamdelegate)
   * [AirstreamRemote](#airstreamremote)
 * [Shairplay](#shairplay)
@@ -107,6 +107,10 @@ For a more detailed example on how to use Airstream, you can refer to the exampl
 
 ### Airstream
 
+This is the main class, from which you can start and stop the AirPlay server.
+
+-
+
 ```swift
 func init()
 func init(name: String?)
@@ -178,7 +182,7 @@ The reference to this Airstream's remote control object, which can be used to se
 var volume: Float?
 ```
 
-The connected Apple device's volume.
+The connected Apple device's volume, between `0.0` (no volume) and `1.0` (maximum volume).
 
 -
 
@@ -194,7 +198,7 @@ The metadata for the current item being streamed.
 var coverart: Data?
 ```
 
-The artwork (in binary) for the current item being streamed.
+The JPEG artwork (in binary) for the current item being streamed.
 
 -
 
@@ -202,7 +206,7 @@ The artwork (in binary) for the current item being streamed.
 var position: UInt
 ```
 
-The current position for the current item being streamed.
+The position (in seconds) of the current item being streamed.
 
 -
 
@@ -210,15 +214,21 @@ The current position for the current item being streamed.
 var duration: UInt
 ```
 
-The total duration for the current item being streamed.
+The total duration (in seconds) of the current item being streamed.
+
+-
 
 ### AirstreamDelegate
+
+This is the delegate class for [Airstream](#airstream-1). By conforming to this protocol, you can listen for changes in AirPlay server status and be notified when data changes.
+
+-
 
 ```swift
 optional func airstream(_ airstream: Airstream, willStartStreamingWithStreamFormat streamFormat: AudioStreamBasicDescription)
 ```
 
-Called right after a device has connected and is about to stream audio.
+Called right after a device has connected and is about to stream audio. [AudioStreamBasicDescription](https://developer.apple.com/reference/coreaudio/audiostreambasicdescription) is a struct outlining the details of the audio output.
 
 -
 
@@ -242,7 +252,7 @@ Called right after the remote control connection has been setup.
 optional func airstream(_ airstream: Airstream, processAudio buffer: UnsafeMutablePointer<Int8>, length: Int32)
 ```
 
-Process linear PCM audio data streamed from a device.
+Process linear PCM audio streamed from a device. `buffer` is a pointer to the audio data, and `length` is the number of bytes stored there.
 
 -
 
@@ -284,7 +294,13 @@ optional func airstream(_ airstream: Airstream, didSetPosition position: UInt, d
 
 Called when a device's current position or duration for the current item being streamed was changed.
 
+-
+
 ### AirstreamRemote
+
+This is the remote control object. If this is present on the [Airstream](#airstream-1) object, then you will be able to send commands to the device connected to your AirPlay server.
+
+-
 
 ```swift
 func play()
@@ -351,10 +367,10 @@ Play next item in playlist.
 -
 
 ```swift
-func pause()
+func previousItem()
 ```
 
-Pause previous item in playlist.
+Play previous item in playlist.
 
 -
 
