@@ -34,7 +34,7 @@ $ brew update
 $ brew install carthage
 ```
 
-Then, to include Airstream in your project, specify it in your `Cartfile`:
+Then, to include Airstream in your project, specify it in your `Cartfile` (make sure it's in the same directory as your `.xcodeproj`):
 
 ```ruby
 github "qasim/Airstream" ~> 0.1
@@ -46,9 +46,7 @@ Now you can install Airstream:
 $ carthage update
 ```
 
-You should now see a `Carthage/Builds` directory. From there, you can drag the built `Airstream.framework` for your platform of choice into your Xcode project.
-
-Make sure that your project's target has the path to this framework in its `Framework Search Paths`, under the `Build settings` tab. For example, if I was building a macOS app that uses Airstream, I would include `Carthage/Builds/Mac` in my target's search path.
+You should now see a `Carthage/Builds` directory. From there, you can drag the built `Airstream.framework` for your platform of choice into your Xcode project, and then add it as an embedded binary in your project's settings.
 
 ## Basic usage
 
